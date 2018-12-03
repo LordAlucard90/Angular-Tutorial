@@ -9,13 +9,13 @@ $ sudo npm install -g @angular/cli@latest
 ```
 ## Create first app
 ```bash
-ng new first-angular-app
+$ ng new first-angular-app
 ```
 Responses: no and css (the defaults)
 
 ## Start development server
 ```bash
-cd first-angular-app
-ng serve
+$ cd first-angular-app
+$ ng serve
 ```
 The default address is: http://localhost:4200/
