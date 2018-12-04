@@ -88,3 +88,70 @@ From the **servers.component.html** can be called any other component in the app
 <app-server></app-server>
 <app-server></app-server>
 ```
+
+---
+
+## Templates
+
+Instead of refer to a template file is possible to write the `html`  content in the `TypeScript` file:
+
+```typescript
+//  templateUrl: './servers.component.html',
+    template: '<app-server></app-server><app-server></app-server>',
+```
+
+With " or ' is important to write the string inline because multiline content is not supported, instead with ` could be used multiline content.
+
+This strategy could be used if the html size is very short.
+
+---
+
+## Style
+
+In **app.component.css** the style for the app could be defined. 
+
+Unlike the template file for the css could be linked multiple style files sheets, as for the template, a file o inline/multiline text could be used, by the way in this case could be defined an array of styles.
+
+```typescript
+  // styleUrls: ['./app.component.css'],
+  styles: [`
+    h3 {
+      color: dodgerblue;
+    }
+  `]})
+```
+
+---
+
+## Selector
+
+The selector must be unique and works in a similar way to that of the css:
+
+#### By Selector
+```typescript
+  selector: 'app-servers',
+```
+the selector can be called with:
+```html
+<app-servers></app-servers>
+```
+
+#### By Attribute
+```typescript
+  selector: '[app-servers]',
+```
+must be called with:
+```html
+<div app-servers></div>
+```
+
+#### By Class
+```typescript
+  selector: '.app-servers',
+```
+must be called with:
+```html
+<div class="app-servers"></div>
+```
+
+
