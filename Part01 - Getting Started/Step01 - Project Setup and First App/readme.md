@@ -19,3 +19,11 @@ $ cd first-angular-app
 $ ng serve
 ```
 The default address is: http://localhost:4200/
+
+## Import Project
+
+```bash
+$ cd angular-app-to-import
+$ npm install --save-dev @angular-devkit/build-angular
+$ ng lint
+```
