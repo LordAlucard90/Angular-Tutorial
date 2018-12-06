@@ -31,11 +31,33 @@ return this.serverStatus;
 }
 ```
 
-Template examples:
+Template code:
 
 ```html
 <p> {{'Server'}} with ID {{serverID}} is {{getServerState()}}. </p>
 ```
 ---
 
+## Property Binding
 
+For property binding is used the `[property]="data"` syntax.
+
+Property binding allows Angular to update the template when a value from TypeScript change.
+
+In this case after two seconds the **Add Server** button become enabled:
+```typescript
+export class ServersComponent implements OnInit {
+  allowNewServers: boolean = false;
+
+  constructor() {
+    setTimeout(() => {
+      this.allowNewServers = true;
+    }, 2000);
+  }
+}
+```
+
+Template code:
+```angular2html
+<button class="btn badge-primary" [disabled]="!allowNewServers">Add Server</button>
+```
