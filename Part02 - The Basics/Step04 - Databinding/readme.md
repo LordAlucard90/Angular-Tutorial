@@ -98,7 +98,6 @@ export class ServersComponent implements OnInit {
 }
 ```
 
-It is possible have a list of properties and events of a element with a `console.log` or searching it on google. 
 
 Is possible catch the event variable connected to a specific event by passing it to the method with `$event`.
 ```angular2html
@@ -137,7 +136,7 @@ import {FormsModule} from "@angular/forms";
 })
 ```
 
-    The `ngModule` works bidirectionally so, if **serverName** has a default value, that text will become the `<input>` default value. This do not append with Event Binding.
+The `ngModule` works bidirectionally so, if **serverName** has a default value, that text will become the `<input>` default value. This do not append with Event Binding.
 
 ```angular2html
 <input
@@ -145,4 +144,10 @@ import {FormsModule} from "@angular/forms";
   class="form-control"
   [(ngModel)]="serverName">
 ```
+
+---
+
+## Events and Properties
+
+It is possible have a list of properties and events of a element with a `console.log` or searching it on google. 
 

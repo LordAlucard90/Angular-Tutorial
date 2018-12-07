@@ -1,0 +1,13 @@
+<div class="container">
+  <input
+    [(ngModel)]="username"
+  >
+  <button
+    [disabled]="!isUsernameEmpty()"
+    (click)="resetUsername()"
+  >Reset</button>
+
+  <p>The username is: {{username}}</p>
+</div>
+
+
