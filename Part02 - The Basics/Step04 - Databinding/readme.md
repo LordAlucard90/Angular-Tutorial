@@ -61,3 +61,88 @@ Template code:
 ```angular2html
 <button class="btn badge-primary" [disabled]="!allowNewServers">Add Server</button>
 ```
+
+---
+
+## String Interpolation vs Property Binding
+
+**String Interpolation**: to print some test to a template.
+
+**Property Binding**: to change some property to a template, a directive or a component.
+
+It is not possible to mix them.
+
+---
+
+## Event Binding
+
+Event binding allows to call a method on a specific property or event of a element.
+
+```angular2html
+<button
+  class="btn badge-primary"
+  [disabled]="!allowNewServers"
+  (click)="onCreateServer()">
+  Add Server
+</button>
+<p>{{serverCreationStatus}}</p>
+```
+
+```typescript
+export class ServersComponent implements OnInit {
+  ...
+  serverCreationStatus: string = 'No server was created!';
+  onCreateServer(){
+    this.serverCreationStatus = 'Server was created!';
+  }
+}
+```
+
+It is possible have a list of properties and events of a element with a `console.log` or searching it on google. 
+
+Is possible catch the event variable connected to a specific event by passing it to the method with `$event`.
+```angular2html
+<input
+  type="text"
+  class="form-control"
+  (input)="onUpdateServerName($event)">
+<p>{{serverName}}</p>
+```
+
+In TypeScript is possible to log it in the console to see the content and take data from it.
+```typescript
+private serverName: string = '';
+
+onUpdateServerName(event: Event) {
+console.log(event);
+this.serverName = (<HTMLInputElement>event.target).value;
+}
+```
+
+---
+
+## Two-Way-Binding
+
+Two-Way-Binding need the `ngModel` directive in the **app.module**:
+```typescript
+import {FormsModule} from "@angular/forms";
+
+@NgModule({
+  ...
+  imports: [
+    BrowserModule,
+    FormsModule
+  ],
+  ...
+})
+```
+
+    The `ngModule` works bidirectionally so, if **serverName** has a default value, that text will become the `<input>` default value. This do not append with Event Binding.
+
+```angular2html
+<input
+  type="text"
+  class="form-control"
+  [(ngModel)]="serverName">
+```
+
