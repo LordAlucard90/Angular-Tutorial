@@ -71,3 +71,9 @@ Looking at the code I had `:` (written with autocompletion..) instead of `=` so 
 name: 'LordAlucard90'; // Wrong
 name = 'LordAlucard90'; // correct
 ```
+
+Explanation: after the value name it wants the type and then the default value:
+```typescript
+name: string = 'LordAlucard90';
+```
+
