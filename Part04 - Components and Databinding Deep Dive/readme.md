@@ -6,3 +6,7 @@
   - View Encapsulation.
 - **Step03 - Templates and Components Lifecycle**  
   - Template Local References, @ViewChild, @ContentChild, ng-component, Lifecycle.
+- **Step07 - Assignment04**
+  - Fourth assigment solution.
+
+
