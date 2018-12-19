@@ -27,6 +27,16 @@ On an element could be placed only one structural directive, this code generate 
 
 ## ngClass and ngStyle
 
+This is an example of `ngClass` and `ngStyle` usage:
 
+```angular2html
+<li
+  class="list-group-item"
+  [ngClass]="{odd: odd % 2 !== 0}"
+  [ngStyle]="{backgroundColor: odd % 2 !== 0 ? 'yellow' : 'transparent'}"
+  *ngFor="let odd of oddNumbers">
+    {{odd}}
+</li>
+```
 
 
