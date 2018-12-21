@@ -24,17 +24,26 @@
               <!--{{even}}-->
           <!--</li>-->
         <!--</div>-->
-        <ng-template [ngIf]="!onlyOdd">
-          <div>
-            <li
-              class="list-group-item"
-              [ngClass]="{odd: even % 2 !== 0}"
-              [ngStyle]="{backgroundColor: even % 2 !== 0 ? 'yellow' : 'transparent'}"
-              *ngFor="let even of evenNumbers">
-                {{even}}
-            </li>
-          </div>
-        </ng-template>
+        <!--<ng-template [ngIf]="!onlyOdd">-->
+          <!--<div>-->
+            <!--<li-->
+              <!--class="list-group-item"-->
+              <!--[ngClass]="{odd: even % 2 !== 0}"-->
+              <!--[ngStyle]="{backgroundColor: even % 2 !== 0 ? 'yellow' : 'transparent'}"-->
+              <!--*ngFor="let even of evenNumbers">-->
+                <!--{{even}}-->
+            <!--</li>-->
+          <!--</div>-->
+        <!--</ng-template>-->
+        <div *appUnless="onlyOdd">
+          <li
+            class="list-group-item"
+            [ngClass]="{odd: even % 2 !== 0}"
+            [ngStyle]="{backgroundColor: even % 2 !== 0 ? 'yellow' : 'transparent'}"
+            *ngFor="let even of evenNumbers">
+              {{even}}
+          </li>
+        </div>
       </ul>
       <ng-template [ngIf]="onlyOdd">
         <p>Only odd</p>
