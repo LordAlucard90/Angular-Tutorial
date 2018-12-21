@@ -59,5 +59,23 @@ In this case the `@Input` associates a method that is executed every time the va
 
 It is important that the name of the directive `*appUnless` is the same of `@Input('appUnless')`.
 
+---
 
+## ngSwitch
 
+The `ngSwitch` directive can be used to avoid multiple `ngIf`:
+
+```angular2html
+<div [ngSwitch]="value">
+  <p *ngSwitchCase="5">Value is 5</p>
+  <p *ngSwitchCase="10">Value is 10</p>
+  <p *ngSwitchCase="100">Value is 100</p>
+  <p *ngSwitchDefault>Value is Default</p>
+</div>
+```
+```typescript
+export class AppComponent {
+  ...
+  value = 5;
+}
+```
