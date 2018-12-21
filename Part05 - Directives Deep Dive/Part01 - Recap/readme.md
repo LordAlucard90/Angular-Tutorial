@@ -127,5 +127,31 @@ export class BetterHighlightDirective implements OnInit{
 
 Since in some cases there is not direct access to the DOM, such as when the app is not run in the browser, it is a better practice use the `render` to access the DOM. 
 
+---
+
+## React To Events
+
+It is possible to react to user events with `@HostListener`:
+
+```typescript
+import {..., HostListener} from '@angular/core';
+export class BetterHighlightDirective {
+  constructor(private elementRef: ElementRef,
+              private renderer: Renderer2) { }
+  @HostListener('mouseenter') mouseover(eventData: Event){
+    this.renderer.setStyle(this.elementRef.nativeElement,
+                            'background-color',
+                            'blue');
+  }
+  @HostListener('mouseleave') mouseleave(eventData: Event){
+    this.renderer.setStyle(this.elementRef.nativeElement,
+                            'background-color',
+                            'transparent');
+  }
+}
+```
+
+`@ HostListener` allows you to associate a custom event and receive data from the event or from custom data.
+
 
 
