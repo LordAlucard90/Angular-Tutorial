@@ -89,3 +89,43 @@ The `private` before make `elementRef` a property of the class and directly assi
 
 The Directives have the `OnInit` and `OnDestroy` lifeCycle but not all the others because Directives do not have templates.
 
+---
+
+## Alternative Directive Creation Method
+
+Another way to create custom directives is :
+
+```bash
+$ ng generate directive directive-name 
+// or 
+$ ng g d directive-name 
+```
+
+By default the files are created in the app folder, is a goo practice put them into a `directive-name` folder or into a `directives` folder .
+
+When the directive's files are moved remember to modify **app.module-ts** with the new directive path.
+
+---
+
+## Better Method To Change DOM
+
+```typescript
+import {Directive, ElementRef, OnInit, Renderer2} from '@angular/core';
+@Directive({
+  selector: '[appBetterHighlight]'
+})
+export class BetterHighlightDirective implements OnInit{
+  constructor(private elementRef: ElementRef,
+              private renderer: Renderer2) { }
+  ngOnInit(): void {
+    this.renderer.setStyle(this.elementRef.nativeElement,
+                            'background-color',
+                            'blue');
+  }
+}
+```
+
+Since in some cases there is not direct access to the DOM, such as when the app is not run in the browser, it is a better practice use the `render` to access the DOM. 
+
+
+
