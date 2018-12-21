@@ -153,5 +153,29 @@ export class BetterHighlightDirective {
 
 `@ HostListener` allows you to associate a custom event and receive data from the event or from custom data.
 
+---
 
+## Binding DOM Properties
+
+Another method to change a DOM element is the `@HostBinding` decorator:
+
+```typescript
+import {..., HostBinding} from '@angular/core';
+@Directive({
+  selector: '[appBetterHighlight]'
+})
+export class BetterHighlightDirective {
+  @HostBinding('style.backgroundColor') backgroundColor: string = 'transparent';
+  constructor(private elementRef: ElementRef,
+              private renderer: Renderer2) { }
+  @HostListener('mouseenter') mouseover(eventData: Event){
+    this.backgroundColor = 'blue';
+  }
+  @HostListener('mouseleave') mouseleave(eventData: Event){
+    this.backgroundColor = 'transparent';
+  }
+}
+```
+
+`@HostBinding` needs camel case property names `style.backgroundColor` and a default value.
 
