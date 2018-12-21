@@ -1,46 +1,6 @@
-# Part 01 - Recap
+# Step 02 - Custom Style Directives
 
-## nfgFor and ngIf
-
-On an element could be placed only one structural directive, this code generate an error:
-
-```angular2html
-<li
-  class="list-group-item"
-  *ngFor="let number of numbers"
-  *ngIf="number % 2 ==0">
-    {{number}}
-</li>
-```
-`ngFor` and `ngIf` can be conbined in this way:
-
-```angular2html
-<div *ngIf="onlyOdd">
-  <li
-    class="list-group-item"
-    *ngFor="let odd of oddNumbers">
-      {{odd}}
-  </li>
-</div>
-```
----
-
-## ngClass and ngStyle
-
-This is an example of `ngClass` and `ngStyle` usage:
-
-```angular2html
-<li
-  class="list-group-item"
-  [ngClass]="{odd: odd % 2 !== 0}"
-  [ngStyle]="{backgroundColor: odd % 2 !== 0 ? 'yellow' : 'transparent'}"
-  *ngFor="let odd of oddNumbers">
-    {{odd}}
-</li>
-```
----
-
-## Create Custom Directive
+## Create Custom Directives
 
 Create a folder with the `directive-name` in the app folder and create e new file named  `directive-name.directive.ts`:
 
@@ -178,4 +138,56 @@ export class BetterHighlightDirective {
 ```
 
 `@HostBinding` needs camel case property names `style.backgroundColor` and a default value.
+
+---
+
+## Getting Values
+
+It is possible to get values from the outside with the `@Input` decorator :
+
+```typescript
+export class BetterHighlightDirective implements OnInit{
+  @Input() defaultColor: string = 'transparent';
+  @Input() highlightColor: string = 'blue';
+  @HostBinding('style.backgroundColor') backgroundColor: string;
+  constructor(private elementRef: ElementRef,
+              private renderer: Renderer2) { }
+  ngOnInit(): void {
+    this.backgroundColor = this.defaultColor;
+  }
+  @HostListener('mouseenter') mouseover(eventData: Event){
+    this.backgroundColor = this.highlightColor;
+  }
+  @HostListener('mouseleave') mouseleave(eventData: Event){
+    this.backgroundColor = this.defaultColor;
+  }
+}
+```
+
+```angular2html
+<p appBetterHighlight 
+   [defaultColor]="'yellow'" 
+   [highlightColor]="'red'">
+     Style me with a better directive different colors
+</p>
+```
+
+It is also possible name the Input property wit the same name of the directive to short the syntax:
+
+```typescript
+@Input('appBetterHighlight') highlightColor: string = 'blue';
+```
+
+```angular2html
+<p [appBetterHighlight]="'red'" [defaultColor]="'yellow'" >Style me with a better directive different colors</p>
+<!-- Stop Working -->
+<!--<p appBetterHighlight>Style me with a better directive</p>-->
+<!--<p appBetterHighlight [defaultColor]="'yellow'" [highlightColor]="'red'">Style me with a better directive different colors</p>-->
+```
+
+If is possible with property binding of strings to use this syntax:
+
+```angular2html
+<p [appBetterHighlight]="'red'" defaultColor="yellow" >Style me with a better directive different colors</p>
+```
 
