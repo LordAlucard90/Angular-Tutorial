@@ -2,7 +2,7 @@
 
 ## Create Custom Directives
 
-Create a folder with the `directive-name` in the app folder and create e new file named  `directive-name.directive.ts`:
+Create a folder with the `directive-name` in the app folder and create and a new file named  `directive-name.directive.ts`:
 
 ```
 app
