@@ -34,6 +34,10 @@ export class AccountsService {
 The **AppComponent** needs to get the accounts from the **AccountsService**:
 
 ```typescript
+@Component({
+  ...,
+  providers: [LoggingService, AccountsService]
+})
 export class AppComponent implements OnInit{
   accounts: {name: string, status: string}[] = [];
 
@@ -48,6 +52,10 @@ export class AppComponent implements OnInit{
 The **AccountComponent** and **NewAccountComponent** do not emit anymore values, instead they call the new **AccountsService** methods:
 
 ```typescript
+@Component({
+  ...,
+  providers: [LoggingService, AccountsService]
+})
 export class AccountComponent {
   ...
   // @Output() statusChanged = new EventEmitter<{id: number, newStatus: string}>();
@@ -65,6 +73,10 @@ export class AccountComponent {
 
 
 ```typescript
+@Component({
+  ...,
+  providers: [LoggingService, AccountsService]
+})
 export class NewAccountComponent {
   // @Output() accountAdded = new EventEmitter<{name: string, status: string}>();
 
@@ -79,6 +91,59 @@ export class NewAccountComponent {
     this.accountsService.addAccount(accountName, accountStatus);
     ...
   }
+}
+```
+---
+
+## Understanding Hierarchical Injector
+
+The Angular dependencies injectors is a Hierarchical Injector so it knows hot to create a instance of a service for a component and all its child components.
+
+More specifically they all will receive the same instance of the service.
+
+Injection Levels:
+
+- **AppModule Level** - in this case the service is available to all components and services.
+- **AppComponent Level** - in this case the service is available to all components only.
+- **Any Other Component Level** - in this case the service is available to the component and all its child components.
+
+When a service is declared on a bottom level it override the any upper declarations.
+
+---
+
+## Fixing AccountsService Override
+
+Because a service declared in **AppComponent** is overridden by the same service declared in any other component and the **AccountsService** must be shared among all components of the app, the service must be removed from components' providers declaration except **AppComponent**:
+
+```typescript
+@Component({
+  ...,
+  providers: [LoggingService, AccountsService]
+})
+export class AppComponent implements OnInit{
+  ...
+  accounts: {name: string, status: string}[] = [];
+}
+```
+
+```typescript
+@Component({
+  ...,
+  providers: [LoggingService]
+})
+export class AccountComponent {
+  ...
+}
+```
+
+
+```typescript
+@Component({
+  ...,
+  providers: [LoggingService]
+})
+export class NewAccountComponent {
+  ...
 }
 ```
 
