@@ -7,4 +7,4 @@
 - **Step03 - Creating A Data Service**
   - AccountsService, Understanding Hierarchical Injector, Fixing AccountsService Override.
 - **Step04 - Advanced Services**
-  - Injecting Services into Services.
+  - Injecting Services into Services, Cross-Component Communication.

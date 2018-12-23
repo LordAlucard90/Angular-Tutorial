@@ -97,4 +97,52 @@ export class AccountsService {
 `@Injectable` tell Angular that the service is injectable / something can be injected in there.
 
 
+These events are not longer required:
+
+```angular2html
+<app-new-account (accountAdded)="onAccountAdded($event)"></app-new-account>
+<app-account
+    ...
+    (statusChanged)="onStatusChanged($event)">
+</app-account>
+
+```
+
+---
+
+## Cross-Component Communication
+
+Is possible create an event emitter in the service and manage the data emitting and event subscribing in the other component:
+
+```typescript
+
+export class AccountsService {
+  ...
+
+  statusUpdate = new EventEmitter<string>();
+  
+  ...
+}
+```
+
+```typescript
+export class AccountComponent {
+  ...
+  onSetTo(status: string) {
+    ...
+    this.accountsService.statusUpdate.emit(status);
+  }
+}
+```
+
+```typescript
+export class NewAccountComponent {
+  constructor(private accountsService: AccountsService){
+    this.accountsService.statusUpdate.subscribe(
+      (status: string) => alert('New Status: ' + status)
+    );
+  }
+  ...
+}
+```
 
