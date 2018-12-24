@@ -88,6 +88,32 @@ The `routerLink` can have:
   - in this case Angular will go to `current_path/path` url.
   - it is also possible user `routerLink="../path"` to move to `parent_path/path` url
 
+---
 
+## Styling Active Router Link
 
+Is is possible to add a custom class to an element the the route is active with `routerLinkActive`:
 
+```angular2html
+...
+<a class="nav-link" routerLink="/" routerLinkActive="active">Home</a>
+...
+<a class="nav-link" routerLink="/servers" routerLinkActive="active">Servers</a>
+...
+<a class="nav-link" routerLink="/users" routerLinkActive="active">Users</a>
+...
+```
+
+For `/servers` and `/users` the `/` like is active because `routerLinkActive` checks only if the current path is equal or a child of the `routerLink`.
+
+To force the equal check is necessary add `routerLinkActiveOptions`:
+
+```angular2html
+<a class="nav-link" 
+    routerLink="/" 
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{exact: true}">
+        Home
+</a>
+
+```

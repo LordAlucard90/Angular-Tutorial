@@ -1,18 +1,20 @@
 <div class="container">
   <div class="row">
     <div class="col-12 col-sm-10 col-md-10 col-sm-offset-1 col-md-offset-2">
-      <ul class="nav nav-tabs">
-        <li role="presentation" class="nav-item">
-          <!--<a class="nav-link active" href="/">Home</a>-->
-          <a class="nav-link active" routerLink="/">Home</a>
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link"
+             routerLink="/"
+             routerLinkActive="active"
+             [routerLinkActiveOptions]="{exact: true}">
+                Home
+          </a>
         </li>
-        <li role="presentation" class="nav-item">
-          <!--<a class="nav-link" href="/servers">Servers</a>-->
-          <a class="nav-link" routerLink="/servers">Servers</a>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/servers" routerLinkActive="active">Servers</a>
         </li>
-        <li role="presentation" class="nav-item">
-          <!--<a class="nav-link" href="/users">Users</a>-->
-          <a class="nav-link" routerLink="/users">Users</a>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/users" routerLinkActive="active">Users</a>
         </li>
       </ul>
     </div>

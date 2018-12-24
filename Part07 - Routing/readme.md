@@ -1,5 +1,4 @@
 # Part 07 - Routing
 
 - **Step01 - Intro**
-  - Configuring Routes, Set Up Navigation, Navigation Path.
-
+  - Configuring Routes, Set Up Navigation, Navigation Path, Styling Active Router Link.
