@@ -76,4 +76,18 @@ Another way to user `routerLink` is:
 
 This way allows to build complex path easily.
 
+---
+
+## Navigation Path
+
+The `routerLink` can have:
+
+- **Absolute Path** - `routerLink="/path"`
+  - in this case Angular will go to `/path` url.
+- **Relative Path** - `routerLink="path"` or `routerLink="./path"`
+  - in this case Angular will go to `current_path/path` url.
+  - it is also possible user `routerLink="../path"` to move to `parent_path/path` url
+
+
+
 
