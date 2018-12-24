@@ -38,4 +38,42 @@ To correctly load the routes in the page is used the `router-outlet`:
 </div>
 ```
 
+---
+
+## Set Up Navigation
+
+It is possible set manually the navigation link:
+
+```angular2html
+...
+<a class="nav-link active" href="/">Home</a>
+...
+<a class="nav-link" href="/servers">Servers</a>
+...
+<a class="nav-link" href="/users">Users</a>
+...
+```
+
+Unfortunately in thi way the app is reloaded every time. 
+
+The correct way to load the component is:
+
+```angular2html
+...
+<a class="nav-link active" routerLink="/">Home</a>
+...
+<a class="nav-link" routerLink="/servers">Servers</a>
+...
+<a class="nav-link" routerLink="/users">Users</a>
+...
+```
+
+Another way to user `routerLink` is:
+
+```angular2html
+<a class="nav-link" [routerLink]="['/page', '/subpage']">link</a>
+```
+
+This way allows to build complex path easily.
+
 
