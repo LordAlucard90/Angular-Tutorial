@@ -110,3 +110,42 @@ const appRoutes: Routes = [
   ...
 ];
 ```
+---
+
+## Fetching Route Parameters Reactively
+
+If from a user details component there is a link to another user like:
+
+```angular2html
+<p>User with ID {{ user.id }} loaded.</p>
+<p>User name is {{ user.name }}</p>
+<br>
+<a [routerLink]="['/users', 10, 'Anna']">load Anna (10)</a>
+```
+
+The user info will not be reloaded because there is no change od component so, for performance, the component will not be reloaded.
+
+To catch the parameters change into the same component is necessary to subscribe to the `ActiveRoute.params` observable:
+
+```typescript
+export class UserComponent implements OnInit {
+  ...
+
+  ngOnInit() {
+    this.user = {
+      id: this.activeRoute.snapshot.params['id'],
+      name: this.activeRoute.snapshot.params['name']
+    };
+    this.activeRoute.params.subscribe(
+      (params: Params) => {
+        this.user.id = params['id'];
+        this.user.name = params['name'];
+      }
+    );
+  }
+}
+```
+
+`snapshot` is used on every creation.
+
+`params` subscription is used only if the route change inside the same component.
