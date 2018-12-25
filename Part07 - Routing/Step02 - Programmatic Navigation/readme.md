@@ -149,3 +149,29 @@ export class UserComponent implements OnInit {
 `snapshot` is used on every creation.
 
 `params` subscription is used only if the route change inside the same component.
+
+---
+
+## Subscription Lifecycle
+
+By default a subscription is destroyed when a component is destroyed.
+
+It is possible anyway to destroy it manually:
+
+```typescript
+export class UserComponent implements OnInit, OnDestroy {
+  user: {id: number, name: string};
+  paramsSubscription: Subscription;
+
+  constructor(private activeRoute: ActivatedRoute) {}
+
+  ngOnInit() {
+    ...
+    this.paramsSubscription = this.activeRoute.params.subscribe(...);
+  }
+
+  ngOnDestroy(): void {
+    this.paramsSubscription.unsubscribe();
+  }
+}
+```
