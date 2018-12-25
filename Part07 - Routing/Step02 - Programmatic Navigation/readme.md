@@ -81,3 +81,32 @@ const appRoutes: Routes = [
 ];
 ```
 
+## Retrieving Parameters
+
+It is possible get the url parameter through the `ActivatedRoute`:
+
+```typescript
+export class UserComponent implements OnInit {
+  user: {id: number, name: string};
+
+  constructor(private activeRoute: ActivatedRoute) {
+  }
+
+  ngOnInit() {
+    this.user = {
+      id: this.activeRoute.snapshot.params['id'],
+      name: this.activeRoute.snapshot.params['name']
+    };
+  }
+}
+```
+
+Where:
+
+```typescript
+const appRoutes: Routes = [
+  ...,
+  { path: 'users/:id/:name', component: UserComponent },
+  ...
+];
+```
