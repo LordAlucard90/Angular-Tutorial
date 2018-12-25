@@ -67,6 +67,17 @@ export class ServersComponent implements OnInit {
 
 In this case Angular will search `/servers/servers`.
 
+---
 
+## Route Parameters
 
+It is possible send data through the route with the syntax `:[variale]`:
+
+```typescript
+const appRoutes: Routes = [
+  ...,
+  { path: 'users/:id/', component: UserComponent },
+  ...
+];
+```
 
