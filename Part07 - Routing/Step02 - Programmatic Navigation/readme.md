@@ -22,5 +22,51 @@ export class HomeComponent implements OnInit {
 }
 ```
 
+---
+
+## Relative Paths
+
+When is made a request to the current orl `Router.navigate` will not reload the page.
+
+```angular2html
+<button class="btn btn-primary" (click)="onReload()">Reload Page</button>
+```
+
+Unlike `routerLinkActive`, `Router.navigate` by default does not know the current route, so it will use the absolute path:
+
+```typescript
+export class ServersComponent implements OnInit {
+  ...
+
+  onReload() {
+    this.router.navigate(['servers']);
+  }
+}
+```
+
+To use a relative path is necessary to specify the `relativeTo` property that is '/' by default:
+
+```typescript
+import {ActivatedRoute, Router} from '@angular/router';
+
+@Component({...})
+export class ServersComponent implements OnInit {
+  ...
+
+  constructor(...,
+              private activatedRoute: ActivatedRoute) {
+  }
+
+  ...
+
+  onReload() {
+    this.router.navigate(['servers'], {relativeTo: this.activatedRoute});
+  }
+}
+```
+
+In this case Angular will search `/servers/servers`.
+
+
 
 
