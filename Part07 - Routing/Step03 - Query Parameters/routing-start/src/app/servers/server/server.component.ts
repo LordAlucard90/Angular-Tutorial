@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 
 import { ServersService } from '../servers.service';
-import {toNumbers} from "@angular/compiler-cli/src/diagnostics/typescript_version";
 
 @Component({
   selector: 'app-server',
@@ -13,7 +12,8 @@ export class ServerComponent implements OnInit {
   server: {id: number, name: string, status: string};
 
   constructor(private serversService: ServersService,
-              private activateRoute: ActivatedRoute) { }
+              private activateRoute: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
     // this.server = this.serversService.getServer(1);
@@ -25,4 +25,10 @@ export class ServerComponent implements OnInit {
     );
   }
 
+  onEdit() {
+    this.router.navigate(
+      ['edit'],
+      {relativeTo: this.activateRoute}
+      );
+  }
 }

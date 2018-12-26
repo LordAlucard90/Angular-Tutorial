@@ -87,4 +87,13 @@ And manage the nested component easily:
 </div>
 ```
 
+---
+
+## Nested Routes Queries
+
+By default, navigating from a component to another, as from a server to its edit page, will lose all the url params of the first:
+
+```
+/servers/1?allowEdit=1#loading -> /servers/1/edit
+```
 
