@@ -60,5 +60,31 @@ id = Number(this.activateRoute.snapshot.params['id'])
 id = +this.activateRoute.snapshot.params['id']
 ```
 
+---
 
- 
+## Nested Routes
+
+It is possible create nested routes:
+
+```typescript
+const appRoutes: Routes = [
+  ...,
+  { path: 'servers', component: ServersComponent, children: [
+    { path: ':id', component: ServerComponent },
+    { path: ':id/edit', component: EditServerComponent },
+    ] },
+];
+```
+And manage the nested component easily:
+
+```angular2html
+<div class="col-xs-12 col-sm-4">
+  <router-outlet></router-outlet>
+  <!--<button class="btn btn-primary" (click)="onReload()">Reload Page</button>-->
+  <!--<app-edit-server></app-edit-server>-->
+  <!--<hr>-->
+  <!--<app-server></app-server>-->
+</div>
+```
+
+
