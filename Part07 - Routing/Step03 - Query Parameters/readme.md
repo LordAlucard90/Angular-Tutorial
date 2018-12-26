@@ -123,3 +123,25 @@ export class ServerComponent implements OnInit {
   }
 }
 ```
+
+---
+
+## 404
+
+It is possible redirect a non existing page to a **404** component with the path matching  `**` and the property `redirectTo`:
+
+```typescript
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+
+const appRoutes: Routes = [
+  ...,
+  { path: 'not-found', component: PageNotFoundComponent},
+  { path: '**', redirectTo: '/not-found'},
+];
+```
+
+The `**` must be the last one because it will always match the current url.
+
+If there is a wrong url on a nested component path this syntax will not catch the error.
+
+

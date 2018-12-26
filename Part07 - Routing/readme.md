@@ -5,5 +5,5 @@
 - **Step02 - Programmatic Navigation**
   - Router Navigate, Relative Paths, Route Parameters, Retrieving Parameters, Fetching Route Parameters Reactively, Subscription Lifecycle.
 - **Step03 - Query Parameters**
-  - Passing Params, Retrieving Params, Params Conversion, Nested Routes, Nested Routes Queries, Query Params Handling.
+  - Passing Params, Retrieving Params, Params Conversion, Nested Routes, Nested Routes Queries, Query Params Handling, 404.
 
