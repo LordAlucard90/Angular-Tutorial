@@ -48,3 +48,17 @@ this.activeRoute.queryParams.subscribe();
 this.activeRoute.fragment.subscribe();
 ```
 
+---
+
+## Params Conversion
+
+By default the params retrieved are string, so ad `id` must be converted to a **number**:
+
+```typescript
+id = Number(this.activateRoute.snapshot.params['id'])
+// or
+id = +this.activateRoute.snapshot.params['id']
+```
+
+
+ 
