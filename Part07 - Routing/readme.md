@@ -5,4 +5,5 @@
 - **Step02 - Programmatic Navigation**
   - Router Navigate, Relative Paths, Route Parameters, Retrieving Parameters, Fetching Route Parameters Reactively, Subscription Lifecycle.
 - **Step03 - Query Parameters**
+  - Passing Params.
 
