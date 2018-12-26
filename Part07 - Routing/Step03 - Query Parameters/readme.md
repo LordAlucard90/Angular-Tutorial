@@ -97,3 +97,29 @@ By default, navigating from a component to another, as from a server to its edit
 /servers/1?allowEdit=1#loading -> /servers/1/edit
 ```
 
+---
+
+## Query Params Handling
+
+Query Params Handling has some possible options:
+
+- **merge** - merges the old query parameters with the new ones.
+- **preserve** - keeps the old query parameters.
+
+By default the behaviour is to drop the old query parameters.
+
+```typescript
+export class ServerComponent implements OnInit {
+  ...
+
+  onEdit() {
+    this.router.navigate(
+      ['edit'],
+      {
+        relativeTo: this.activateRoute,
+        queryParamsHandling: 'preserve'
+      }
+      );
+  }
+}
+```
