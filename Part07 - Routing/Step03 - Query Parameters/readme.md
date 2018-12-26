@@ -35,3 +35,16 @@ export class HomeComponent implements OnInit {
 ```angular2html
 <button class="btn btn-primary" (click)="onLoadServer(1)">Load Server 1</button>
 ```
+---
+
+## Retrieving Params
+
+Like for `params`, it is possible for to get `queryParams` and `fragment` through **snapshot** or **subscribe**:
+
+```typescript
+console.log(this.activeRoute.snapshot.queryParams);
+console.log(this.activeRoute.snapshot.fragment);
+this.activeRoute.queryParams.subscribe();
+this.activeRoute.fragment.subscribe();
+```
+
