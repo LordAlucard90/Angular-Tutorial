@@ -7,3 +7,4 @@
 - **Step03 - Query Parameters**
   - Passing Params, Retrieving Params, Params Conversion, Nested Routes, Nested Routes Queries, Query Params Handling, 404.
 - **Step04 - Improving Routing**
+  - Outsourcing Routes, Route Guards.
