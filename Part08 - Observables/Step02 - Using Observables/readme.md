@@ -1,4 +1,4 @@
-# Step01 - Using Observables
+# Step02 - Using Observables
 
 ##  Subscribing
 
@@ -67,6 +67,37 @@ myObservable.subscribe(
 
 If the `error` or the `complete` signal is send the Observable is considered finish and no more notification are emitted.
 
+---
+
+## Unsubscribing 
+
+When a custom Observable is used, like `inverval` it will continue to create events even if the component is destroyed.
+
+```typescript
+import {..., Subscription} from 'rxjs';
+
+export class HomeComponent implements OnInit, OnDestroy {
+  myNumbersSubscription: Subscription;
+  customSubscription: Subscription;
+
+  constructor() { }
+
+  ngOnInit() {
+    ...
+    this.myNumbersSubscription = myNumbers.subscribe(...);
+
+    const myObservable = Observable.create(...);
+    this.customSubscription = myObservable.subscribe(...);
+  }
+
+  ngOnDestroy(): void {
+    this.myNumbersSubscription.unsubscribe();
+    this.customSubscription.unsubscribe();
+  }
+}
+```
+
+To correctly destroy an Observable is necessary to call `unsubscribe` on the `ngOnDestroy` method.
 
 
 
