@@ -6,4 +6,7 @@
   - Creating An Observable,
   - Unsubscribing
 - **Step03 - Advanced Operations**
+  - Passing Data With Subject
+  - Operators
+  - Documentation
 
