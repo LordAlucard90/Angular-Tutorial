@@ -80,5 +80,28 @@ onSubmit(form: NgForm) {
 
 `NgForm` exposes a lot of method to manage the forms and get their status.
 
+---
+
+## Retrieving Forms With ViewChild
+
+Another way to retrieve the `ngForm` is `@ViewChild`:
+
+```angular2html
+<form (ngSubmit)="onSubmit()" #f="ngForm">
+    ...
+</form>
+```
+
+```typescript
+export class AppComponent {
+  @ViewChild('f') myForm: NgForm;
+  
+  ...
+
+  onSubmit() {
+    console.log(this.myForm);
+  }
+}
+```
 
 
