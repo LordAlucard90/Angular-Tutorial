@@ -20,3 +20,5 @@
   - Retrieving Input Values
   - Resetting Form
 - **Step04 - Assignment 06**
+  - Sixth assignment solution
+
