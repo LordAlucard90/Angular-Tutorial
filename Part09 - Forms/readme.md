@@ -19,3 +19,4 @@
   - Changing Values
   - Retrieving Input Values
   - Resetting Form
+- **Step04 - Assignment 06**
