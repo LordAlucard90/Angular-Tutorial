@@ -22,3 +22,13 @@
 - **Step04 - Assignment 06**
   - Sixth assignment solution
 - **Step05 - Reactive**
+  - SetUp
+  - Creating Forms
+  - Connecting Form To Template
+  - Submitting Form
+  - Adding Validation
+  - Error Messages
+  - Grouping Inputs
+
+
+
