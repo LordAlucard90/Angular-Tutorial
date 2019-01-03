@@ -30,5 +30,10 @@
   - Error Messages
   - Grouping Inputs
 - **Step06 - Advanced Reactive**
-
+  - Creating Inputs Dynamically
+  - Custom Validators
+  - Using Error Codes
+  - Asynchronous Validators
+  - Status And Value Observable
+  - Changing Values
 

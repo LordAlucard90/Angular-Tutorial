@@ -13,7 +13,12 @@
             <span
               class="help-block"
               *ngIf="!myForm.get('userData.username').valid && myForm.get('userData.username').touched">
-                Please enter a valid username!
+                <span *ngIf="myForm.get('userData.username').errors['nameIfForbidden']">
+                    This name is invalid!
+                </span>
+                <span *ngIf="myForm.get('userData.username').errors['required']">
+                    This name is required!
+                </span>
             </span>
           </div>
           <div class="form-group">
@@ -37,6 +42,23 @@
               type="radio"
               [value]="gender">{{ gender }}
           </label>
+        </div>
+        <div formArrayName="hobbies">
+          <h4>Your Hobbies</h4>
+          <button
+            class="btn btn-light"
+            type="button"
+            (click)="addHobby()">
+              Add Hobby
+          </button>
+          <div
+            *ngFor="let hobbyControl of myForm.get('hobbies').controls; let i = index"
+            class="form-group">
+            <input
+              class="form-control"
+              type="text"
+              [formControlName]="i">
+          </div>
         </div>
         <p
           class="help-block"
