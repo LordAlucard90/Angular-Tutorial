@@ -37,4 +37,5 @@
   - Status And Value Observable
   - Changing Values
 - **Step07 - Assignment 07**
+  - Seventh assignment solution
 
