@@ -9,6 +9,7 @@
   - Filtering Pipe
   - Forcing Pipe Reload
   - Asynchronous Pipes
+- **Step02 - Assignment08**
 
 
 
