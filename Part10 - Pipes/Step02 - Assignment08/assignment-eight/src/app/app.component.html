@@ -15,12 +15,12 @@
         <hr>
         <li
           class="list-group-item"
-          *ngFor="let server of servers | filter:filteredStatus:'status'"
+          *ngFor="let server of servers | filter:filteredStatus:'status' | sort "
           [ngClass]="getStatusClasses(server)">
 
           <!--<strong>{{ server.name | shorten }}</strong> |-->
           <strong>{{ server.name | shorten:15 }}</strong> |
-          {{ server.instanceType | uppercase }} |
+          {{ server.instanceType | uppercase | reverse }} |
 
           <!--{{ server.started | date }}-->
           <!--{{ server.started | date:'fullDate' }}-->

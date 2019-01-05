@@ -10,6 +10,7 @@
   - Forcing Pipe Reload
   - Asynchronous Pipes
 - **Step02 - Assignment08**
+  - Eighth assignment solution
 
 
 
