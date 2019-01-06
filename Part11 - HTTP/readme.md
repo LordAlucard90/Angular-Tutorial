@@ -9,5 +9,6 @@
   - Overriding Data
   - Catching Errors
   - Using Async Pipe
+- **Step02 - HTTP Client**
 
 
