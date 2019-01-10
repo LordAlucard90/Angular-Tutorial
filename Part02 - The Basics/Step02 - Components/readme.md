@@ -49,13 +49,13 @@ import {ServerComponent} from "./server/server.component";
 ```
 ---
 
-## Call component selector
+## Call Component Selector
 
 Since the component is not the bootstrap component the selector **<app-server></app-server>** could only be called from the **app.component.html** file.
 
 ---
 
-## Alternative creation method
+## Alternative Creation Method
 
 While `ng serve` is running in another terminal could be userd the command:
 

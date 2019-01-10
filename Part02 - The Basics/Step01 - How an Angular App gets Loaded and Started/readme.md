@@ -16,7 +16,7 @@ The property **selector** contains the name of the tag that the component will r
 
 ## main.ts
 
-`src/`**main.tx** is the first typescript file elaborate by the framework.
+`src/`**main.ts** is the first typescript file elaborate by the framework.
 
 The first import chack the production or development state.
 ```typescript

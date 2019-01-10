@@ -1,19 +1,19 @@
 # Step 01 - Project Setup and First App
 
-## node.js and npm installation
+## node.js And npm Installation
 https://github.com/nodesource/distributions/blob/master/README.md
 
-## Angular installation
+## Angular Installation
 ```bash
 $ sudo npm install -g @angular/cli@latest
 ```
-## Create first app
+## Create First App
 ```bash
 $ ng new first-angular-app
 ```
 Responses: no and css (the defaults)
 
-## Start development server
+## Start Development Server
 ```bash
 $ cd first-angular-app
 $ ng serve

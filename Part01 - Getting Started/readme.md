@@ -1,8 +1,16 @@
 # Part 01 - Getting Started
 
-- **Step01 - Project Setup and First App** 
-  - install and set up project.
-- **Step02 - Editing the First App** 
-  - first look to: Components, start the Server, Directives and Modules.
-- **Step03 - A Basic Project Setup using Bootstrap for Styling**
-  - how to create a standard initial project.
+1. **Project Setup and First App** 
+    - node.js And npm Installation
+    - Angular Installation
+    - Create First App
+    - Start Development Server
+    - Import Project
+2. **Editing the First App** 
+    - Components
+    - The server
+    - Directives
+    - Modules
+3. **A Basic Project Setup using Bootstrap for Styling**
+    - Getting Bootstrap
+    - Load Bootstrap

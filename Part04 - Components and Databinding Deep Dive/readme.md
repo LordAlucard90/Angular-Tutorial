@@ -1,12 +1,16 @@
 # Part 04 - Components and Databinding Deep Dive
 
-- **Step01 - Splitting Apps into Components**
-  - Split intro, Custom Property Binding, Custom Event Binding.
-- **Step02 - View Encapsulation**
-  - View Encapsulation.
-- **Step03 - Templates and Components Lifecycle**  
-  - Template Local References, @ViewChild, @ContentChild, ng-component, Lifecycle.
-- **Step07 - Assignment04**
-  - Fourth assigment solution.
+1. **Splitting Apps into Components**
+    - Custom Property Binding
+    - Custom Event Binding
+2. **View Encapsulation**
+    - Encapsulation
+3. **Templates and Components Lifecycle**  
+    - Template Local References
+    - @ViewChild
+    - ng-component
+    - Lifecycle, @ContentChild
+4. **Assignment04**
+    - Fourth assignment solution
 
 

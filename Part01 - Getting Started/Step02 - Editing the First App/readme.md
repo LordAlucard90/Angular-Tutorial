@@ -20,7 +20,7 @@ The `@Component` annotation contains some important information:
 
 ---
 
-## The server
+## The Server
 
 While the development server, started with the `ng serve` command, is running, changes in files are immediately reflected in the web page.
 

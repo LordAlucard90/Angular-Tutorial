@@ -1,9 +1,15 @@
 # Part 05 - Directives Deep Dive
 
-- **Step01 - Recap**
-  - nfgFor, ngIf, ngClass, ngStyle.
-- **Step02 - Custom Style Directives**
-  - Create Custom Directives, Different Methods To Change The DOM, React To Events.
-- **Step03 - Custom Structural Directives**
-  - ng-template, Custom Structural Directivesn, ngSwitch.
+1. **Recap**
+    - ngFor and ngIf
+    - ngClass and ngStyle
+2. **Custom Style Directives**
+    - Create Custom Directives
+    - Alternative Directive Creation Method
+    - Better Method To Change DOM
+    - React To Events
+3. **Custom Structural Directives**
+    - ng-template
+    - Custom Structural Directivesn
+    - ngSwitch
 

@@ -1,6 +1,6 @@
 # Part 01 - Recap
 
-## nfgFor and ngIf
+## ngFor and ngIf
 
 On an element could be placed only one structural directive, this code generate an error:
 
