@@ -40,8 +40,10 @@ import {Observable} from 'rxjs/Observable';
 import {Observer} from 'rxjs/Observer';
 import {Subscription} from 'rxjs/Subscription';
 import 'rxjs/Rx';
+import 'rxjs/add/operator/do'
 
 Observable.interval.map(...);
+next.handle(red).do(...) // http section
 
 ```
 
@@ -50,9 +52,10 @@ New syntax:
 ```typescript
 import {Subject, Observable, Observer, Subscription} from 'rxjs';
 import {interval} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 
 interval.pipe(map(...));
+next.handle(red).pipe(tap(...)) // do() was renamed to tap()
 
 ```
 
