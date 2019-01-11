@@ -20,10 +20,25 @@ $ ng serve
 ```
 The default address is: http://localhost:4200/
 
-## Import Project
+## Updating Project
+
+```bash
+$ cd angular-app-to-import
+$ npm update
+```
+
+## Importing Project
 
 ```bash
 $ cd angular-app-to-import
 $ npm install --save-dev @angular-devkit/build-angular
 $ ng lint
+```
+
+## Finding And Removing Vulnerabilities
+
+```bash
+$ cd angular-app
+$ npm audit         # search for issues
+$ npm audit fix     # remove issues
 ```

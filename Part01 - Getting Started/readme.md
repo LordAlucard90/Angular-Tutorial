@@ -5,7 +5,9 @@
     - Angular Installation
     - Create First App
     - Start Development Server
-    - Import Project
+    - Updating Project
+    - Importing Project
+    - Finding And Removing Vulnerabilities
 2. **Editing the First App** 
     - Components
     - The server
