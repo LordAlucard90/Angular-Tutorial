@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
-import { ServerService } from './server.service';
+import {ServerService} from './server.service';
+import {HttpEvent, HttpEventType} from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -32,7 +33,11 @@ export class AppComponent {
   onSave() {
     this.serverService.storeServers(this.servers)
       .subscribe(
-        (response) => console.log(response),
+        (response: HttpEvent<Object>) => {
+          console.log(response.type === HttpEventType.Sent);
+          console.log(response.type === HttpEventType.Response);
+          console.log(response);
+        },
         (error) => console.log(error)
       );
   }
@@ -40,7 +45,7 @@ export class AppComponent {
     this.serverService.getServers()
       .subscribe(
         (servers: any[]) => this.servers = servers,
-        (error) => console.log(error)
+        // (error) => console.log(error)
       );
   }
   private generateId() {

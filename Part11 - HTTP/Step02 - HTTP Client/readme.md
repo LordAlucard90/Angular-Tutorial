@@ -110,5 +110,50 @@ return this.httpClient.get(
   - **text**
   - **arrayBuffer**
 
+---
+
+## Response Events
+
+It is possible to return a event from the request:
+
+```typescript
+export class ServerService {
+  ...  
+  storeServers(servers: any[]) {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.httpClient.put(this.basePath + '/data.json',
+      servers,
+      { observe: 'events'}
+    );
+  }
+  ...
+}
+```
+
+During the request there are different events that can be used to give feedback to the user:
+
+```typescript
+import {HttpEvent, HttpEventType} from '@angular/common/http';
+
+@Component({...})
+export class AppComponent {
+  onSave() {
+    this.serverService.storeServers(this.servers)
+      .subscribe(
+        (response: HttpEvent<Object>) => {
+          console.log(response.type === HttpEventType.Sent);
+          console.log(response.type === HttpEventType.Response);
+          console.log(response);
+        },
+        (error) => console.log(error)
+      );
+  }
+}
+```
+
+Some `HttpEventType` are: Sent, Response, DownloadProgress, UploadProgress, User.
+
+---
+
 
 

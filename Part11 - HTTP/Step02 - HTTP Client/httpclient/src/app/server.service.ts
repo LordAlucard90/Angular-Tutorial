@@ -11,8 +11,7 @@ interface Server {
 
 @Injectable()
 export class ServerService {
-  // basePath = 'https://project_name.firebaseio.com';
-  basePath = 'https://angular-tutorial-17ca4.firebaseio.com/';
+  basePath = 'https://project_name.firebaseio.com';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -23,7 +22,10 @@ export class ServerService {
     //   {headers: headers});
     return this.httpClient.put(this.basePath + '/data.json',
       servers,
-      {headers: headers});
+      {
+        headers: headers,
+        observe: 'events'
+      });
   }
 
   getServers() {
