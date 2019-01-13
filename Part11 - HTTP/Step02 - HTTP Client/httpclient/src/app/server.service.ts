@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {catchError, map} from 'rxjs/operators';
 import {throwError} from 'rxjs';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams, HttpRequest} from '@angular/common/http';
 
 interface Server {
   name: string;
@@ -16,16 +16,25 @@ export class ServerService {
   constructor(private httpClient: HttpClient) {}
 
   storeServers(servers: any[]) {
-    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    // const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    // const headers = new HttpHeaders().set('Content-Type', 'application/json');
     // return this.httpClient.post(this.basePath + '/data.json',
     //   servers,
     //   {headers: headers});
-    return this.httpClient.put(this.basePath + '/data.json',
+    // return this.httpClient.put(this.basePath + '/data.json',
+    //   servers,
+    //   {
+    //     headers: headers,
+    //     // params: new HttpParams().set('q', 'something'),
+    //     observe: 'events'
+    //   });
+    const req = new HttpRequest(
+      'PUT',
+      this.basePath + '/data.json',
       servers,
-      {
-        headers: headers,
-        observe: 'events'
-      });
+      {reportProgress: true}
+    );
+    return this.httpClient.request(req);
   }
 
   getServers() {

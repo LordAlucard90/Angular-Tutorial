@@ -34,8 +34,10 @@ export class AppComponent {
     this.serverService.storeServers(this.servers)
       .subscribe(
         (response: HttpEvent<Object>) => {
-          console.log(response.type === HttpEventType.Sent);
-          console.log(response.type === HttpEventType.Response);
+          // console.log(response.type === HttpEventType.Sent);
+          // console.log(response.type === HttpEventType.DownloadProgress);
+          // console.log(response.type === HttpEventType.UploadProgress);
+          // console.log(response.type === HttpEventType.Response);
           console.log(response);
         },
         (error) => console.log(error)

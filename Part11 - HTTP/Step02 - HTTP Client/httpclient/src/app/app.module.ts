@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { ServerService } from './server.service';
+import {ContentInterceptor} from './content.interceptor';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,7 @@ import { ServerService } from './server.service';
     FormsModule,
     HttpClientModule
   ],
-  providers: [ServerService],
+  providers: [ServerService, {provide: HTTP_INTERCEPTORS, useClass: ContentInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -12,7 +12,9 @@
 2. **HTTP Client**
     - Importing HTTPClient
     - Changing Response Type
-    - Response Events
-
-
+    - Response Events, HttpEvent, HttpEventType
+    - Headers
+    - Query Params
+    - Showing Progress
+    - Interceptions
 
