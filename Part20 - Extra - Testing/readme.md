@@ -233,5 +233,29 @@ it('should fetch data with the async', async (() => {
 `spyOn` is used to simulate methods.
 
 
+#### fakeAsync
 
+In order to reduce the promise test execution time it is possible to use `fakeAsync` and `tick`:
+
+```typescript
+it('should fetch data with the fakeAsync', fakeAsync(() => {
+    const spy = spyOn(dataService, 'getDetails')
+      .and.returnValue(Promise.resolve('Test Data'));
+    fixture.detectChanges();
+    tick();
+    expect(component.data).toBe('Test Data');
+}));
+```
+
+**Warning** - in this case do not put `fixture.detectChanges()` in the `beforeEach`:
+
+```typescript
+beforeEach(() => {
+    fixture = TestBed.createComponent(UserComponent);
+    component = fixture.componentInstance;
+    userService = fixture.debugElement.injector.get(UserService);
+    dataService = fixture.debugElement.injector.get(DataService);
+    // fixture.detectChanges();
+});
+```
 

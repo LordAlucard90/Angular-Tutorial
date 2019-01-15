@@ -33,15 +33,17 @@ describe('UserComponent', () => {
     component = fixture.componentInstance;
     userService = fixture.debugElement.injector.get(UserService);
     dataService = fixture.debugElement.injector.get(DataService);
-    fixture.detectChanges();
+    // fixture.detectChanges();
   });
 
   it('should create', () => {
+    fixture.detectChanges();
     expect(component).toBeTruthy();
     expect(fixture.debugElement.componentInstance).toEqual(component);
   });
 
   it('should use the user name from the service', () => {
+    fixture.detectChanges();
     expect(userService.user.name).toEqual(component.user.name);
   });
 
@@ -70,6 +72,14 @@ describe('UserComponent', () => {
     fixture.whenStable().then(() => {
       expect(component.data).toBe('Data');
     });
+  }));
+
+  it('should fetch data with the fakeAsync', fakeAsync(() => {
+    const spy = spyOn(dataService, 'getDetails')
+      .and.returnValue(Promise.resolve('Test Data'));
+    fixture.detectChanges();
+    tick();
+    expect(component.data).toBe('Test Data');
   }));
 
 });
