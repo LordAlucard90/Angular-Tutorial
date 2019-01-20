@@ -258,4 +258,41 @@ beforeEach(() => {
     // fixture.detectChanges();
 });
 ```
+---
 
+## Isolated Tests
+
+Not all tests need to use the Angular test framework. For example a Pipe:
+
+```typescript
+import {Pipe, PipeTransform} from "@angular/core";
+
+@Pipe({
+  name: 'reverse'
+})
+export class ReversePipe implements PipeTransform{
+  transform(value: string, ...args): any {
+    return value.split('').reverse().join('');
+  }
+}
+```
+
+Does not need `TestBed` or `async`:
+
+```typescript
+import {ReversePipe} from './reverse.pipe';
+
+describe('ReversePipe', () => {
+  it('should reverse text', () => {
+    const reversePipe = new ReversePipe();
+    expect(reversePipe.transform('hello')).toEqual('olleh');
+  });
+});
+```
+---
+
+## Documentation
+
+- https://angular.io/guide/testing
+- https://github.com/angular/angular-cli/wiki/test
+- https://github.com/angular/angular-cli/wiki/e2e
