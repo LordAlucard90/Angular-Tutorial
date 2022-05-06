@@ -14,3 +14,9 @@ The repository is divided by the main topics and each one is divided by the diff
     - [Directives](./01%20-%20The%20Basics/readme.md#directives)
 
 
+
+- [**Assignments**](./99%20-%20Assignments/readme.md)
+    - [Assignment 01](./99%20-%20Assignments/readme.md#assignment-01)
+    - [Assignment 02](./99%20-%20Assignments/readme.md#assignment-02)
+    - [Assignment 03](./99%20-%20Assignments/readme.md#assignment-03)
+

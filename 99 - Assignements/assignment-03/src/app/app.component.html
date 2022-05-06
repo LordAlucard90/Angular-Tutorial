@@ -1,0 +1,17 @@
+<div class="container">
+  <button
+    class="btn badge-info"
+    (click)="toggleSecret()">
+    Display Details
+  </button>
+  <p *ngIf="secretVisible">This is a secret paragraph</p>
+  <hr>
+  <!-- <p *ngFor="let click of clickLogs" -->
+  <!--    [ngClass]="{'high-log': click > 4}" -->
+  <!--    [ngStyle]="{color: click > 4 ? 'white' : ''}" -->
+  <!-- >{{click}}</p> -->
+  <p *ngFor="let click of clickLogs; let i = index"
+     [ngClass]="{'high-log': i > 4}"
+     [ngStyle]="{color: i > 4 ? 'white' : ''}"
+  >{{click}}</p>
+</div>
