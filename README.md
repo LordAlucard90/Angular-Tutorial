@@ -7,5 +7,10 @@ The repository is divided by the main topics and each one is divided by the diff
     - [Project Setup and First App](./00%20-%20Getting%20Started/readme.md#project-setup-and-first-app)
     - [Editing The First App](./00%20-%20Getting%20Started/readme.md#editing-the-first-app)
     - [A Basic Project Setup Using Bootstrap For Styling](./00%20-%20Getting%20Started/readme.md#a-basic-project-setup-using-bootstrap-for-styling)
+- [**The Basics**](./01%20-%20The%20Basics/readme.md)
+    - [How An Angular App Gets Loaded And Started](./01%20-%20The%20Basics/readme.md#how-an-angular-app-gets-loaded-and-started)
+    - [Components](./01%20-%20The%20Basics/readme.md#components)
+    - [Data Binding](./01%20-%20The%20Basics/readme.md#data-binding)
+    - [Directives](./01%20-%20The%20Basics/readme.md#directives)
 
 
