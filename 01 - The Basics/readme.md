@@ -132,12 +132,12 @@ Since the component is not the bootstrap component the selector
 
 ### Alternative Creation Method
 
-While `ng serve` is running in another terminal could be userd the command:
+While `ng serve` is running in another terminal could be used the command:
 
 ```bash
-$ ng generate component servers
+ng generate component servers
 // or 
-$ ng g c servers
+ng g c servers
 ```
 
 In this case the `CLI` should automatically add the file import **app.modules.ts**.
