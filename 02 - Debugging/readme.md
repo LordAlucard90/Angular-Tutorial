@@ -1,4 +1,12 @@
-# Part03 - Debugging
+# Debugging
+
+## Content
+
+- [Error Messages](#error-messages)
+- [Partial Working Error](#partial-working-error)
+- [Augury](#augury)
+
+---
 
 ## Error Messages
 
@@ -18,14 +26,13 @@ The error referees to:
 servers;
 
 onAddServer() {
-this.servers.push('Another Server');
+    this.servers.push('Another Server');
 }
 ```
 
 *Cannot read property 'push' of undefined* means that **servers** is undefined. 
 
 The value is initialized but not declared, ``servers = [];`` solves the problem.
-
 ---
 
 ## Partial Working Error

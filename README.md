@@ -12,6 +12,10 @@ The repository is divided by the main topics and each one is divided by the diff
     - [Components](./01%20-%20The%20Basics/readme.md#components)
     - [Data Binding](./01%20-%20The%20Basics/readme.md#data-binding)
     - [Directives](./01%20-%20The%20Basics/readme.md#directives)
+- [**Debugging**](./02%20-%20Debugging/readme.md)
+    - [Error Messages](./02%20-%20Debugging/readme.md#error-messages)
+    - [Partial Working Error](./02%20-%20Debugging/readme.md#partial-working-error)
+    - [Augury](./02%20-%20Debugging/readme.md#augury)
 
 
 
