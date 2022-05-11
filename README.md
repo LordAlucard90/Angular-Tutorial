@@ -1,7 +1,11 @@
 # Angular-Tutorial
-In this repository I'll made the steps of the "[Angular - The Complete Guide (2022 Edition)](https://www.udemy.com/the-complete-guide-to-angular-2/)" course.
+In this repository I'll made the steps of the 
+"[Angular - The Complete Guide (2022 Edition)](https://www.udemy.com/the-complete-guide-to-angular-2/)" course.
 
-The repository is divided by the main topics and each one is divided by the different course steps/lessons (step is not equal to video). Each step contains a readme with the explanation of the step and, if is change from the previous step, the new code.
+The repository is divided by the main topics and
+each one is divided by the different course steps/lessons (step is not equal to video).
+Each step contains a readme with the explanation of the step and,
+if is change from the previous step, the new code.
 
 - [**Getting Started**](./00%20-%20Getting%20Started/readme.md)
     - [Project Setup and First App](./00%20-%20Getting%20Started/readme.md#project-setup-and-first-app)
@@ -16,8 +20,11 @@ The repository is divided by the main topics and each one is divided by the diff
     - [Error Messages](./02%20-%20Debugging/readme.md#error-messages)
     - [Partial Working Error](./02%20-%20Debugging/readme.md#partial-working-error)
     - [Augury](./02%20-%20Debugging/readme.md#augury)
-
-
+- [**Components and Data Binding Deep Dive**](./03%20-%20Components%20and%20Databinding%20Deep%20Dive/readme.md)
+    - [Splitting Apps Into Components](./03%20-%20Components%20and%20Databinding%20Deep%20Dive/readme.md#splitting-apps-into-components)
+    - [View Encapsulation](./03%20-%20Components%20and%20Databinding%20Deep%20Dive/readme.md#view-incapsulation)
+    - [Templates](./03%20-%20Components%20and%20Databinding%20Deep%20Dive/readme.md#templates)
+    - [Components Lifecycle](./03%20-%20Components%20and%20Databinding%20Deep%20Dive/readme.md#components-lifecycle)
 
 - [**Assignments**](./99%20-%20Assignments/readme.md)
     - [Assignment 01](./99%20-%20Assignments/readme.md#assignment-01)
