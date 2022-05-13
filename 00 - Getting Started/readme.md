@@ -10,8 +10,7 @@
 
 ## Project Setup and First App
 
-### node.js And npm Installation
-https://github.com/nodesource/distributions/blob/master/README.md
+[node.js And npm Installation](https://github.com/nodesource/distributions/blob/master/README.md)
 
 ### Angular Installation
 ```bash

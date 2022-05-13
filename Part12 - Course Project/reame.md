@@ -1,7 +1,7 @@
 # Course Project
 
 - [The Basics](#the-basics)
-- [](#)
+- [Components And Data Binding Deep Dive](#components-and-databinding-deep-dive)
 - [](#)
 - [](#)
 - [](#)
@@ -152,6 +152,281 @@ export class RecipeListComponent implements OnInit {
   </span>
 </a>
 ```
+
+## Components And Data Binding Deep Dive
+
+### ngIf
+
+A first simple navigation form the `HeaderComponent`, can be accomplished
+emitting a value corresponding to the wanted page:
+```angular2html
+<!-- ... -->
+<li><a href="#" (click)="onSelect('recipe')">Recipes</a></li>
+<li><a href="#" (click)="onSelect('shopping-list')">Shopping List</a></li>
+<!-- ... -->
+```
+
+```typescript
+export class HeaderComponent implements OnInit {
+    @Output() featureSelected = new EventEmitter<string>();
+    
+    // ...
+
+    onSelect(feature: string) {
+        this.featureSelected.emit(feature);
+    }
+}
+```
+
+And using an `ngIf` statement to display the selected page in the `AppComponent`:
+```angular2html
+<app-header (featureSelected)="onNavigate($event)"></app-header>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+        <app-recipes *ngIf="loadedFeature === 'recipe'"></app-recipes>
+        <app-shopping-list *ngIf="loadedFeature === 'shopping-list'"></app-shopping-list>
+    </div>
+  </div>
+</div>
+```
+
+```typescript
+export class AppComponent {
+    loadedFeature = 'recipe';
+    title = 'course-project';
+
+    onNavigate(feature: string) {
+        this.loadedFeature= feature
+    }
+}
+```
+
+### ngFor
+
+It is possible to pass the content of each recipe form the `RecipeListComponent`
+to the 'RecipeItem' looping over the elements and passing the current value:
+```angular2html
+<!-- ... -->
+<app-recipe-item *ngFor="let curRecipe of recipes" [recipe]="curRecipe"></app-recipe-item>
+<!-- ... -->
+```
+In the `RecipeItemComponent` it then possible to catch this value
+using `@Input` and displaying the data in the view:
+```typescript
+export class RecipeItemComponent implements OnInit {
+    @Input() recipe: Recipe = {} as Recipe;
+
+    constructor() {}
+
+    ngOnInit(): void {}
+}
+```
+```angular2html
+<a 
+    href="#"
+    class="list-group-item clearfix"
+    >
+    <div class="pull-left">
+        <h4 class="list-group-item-heading">{{ recipe.name }}</h4>
+        <p class="list-group-item-text">{{ recipe.description }}</p>
+    </div>
+    <span class="pull-right">
+        <img [src]="recipe.imagePath" alt="{{ recipe.name }}" class="img-responsive" style="max-height: 50px" />
+    </span>
+</a>
+```
+
+### Passing Current Selected Recipe
+
+Starting from the `RecipeItemComponent` can be emitted an avent on select:
+```angular2html
+<a 
+    href="#"
+    class="list-group-item clearfix"
+    (click)="onSelected()"
+    >
+    <!-- ... -->
+</a>
+```
+```typescript
+export class RecipeItemComponent implements OnInit {
+    // ...
+    @Output() recipeSelected = new EventEmitter<void>();
+    // ...
+    onSelected() {
+        this.recipeSelected.emit();
+    }
+}
+```
+intercepts and resent in the `RecipeListComponent`:
+```angular2html
+<!-- ... -->
+<app-recipe-item
+    *ngFor="let curRecipe of recipes"
+    [recipe]="curRecipe"
+    (recipeSelected)="onRecipeSelected(curRecipe)"
+    ></app-recipe-item>
+<!-- ... -->
+```
+```typescript
+export class RecipeListComponent implements OnInit {
+    @Output() recipeWasSelected = new EventEmitter<Recipe>();
+    // ...
+    onRecipeSelected(recipe: Recipe) {
+        this.recipeWasSelected.emit(recipe);
+    }
+}
+```
+intercepts and resent in the `RecipesComponent`:
+```angular2html
+<div class="row">
+    <div class="col-md-5">
+        <app-recipe-list (recipeWasSelected)="selectedRecipe = $event"></app-recipe-list>
+    </div>
+    <div class="col-md-7">
+        <app-recipe-detail
+            *ngIf="selectedRecipe; else infoText"
+            [recipe]="selectedRecipe"
+            ></app-recipe-detail>
+        <ng-template #infoText>
+            <p>Please select a Recipe!</p>
+        </ng-template>
+    </div>
+</div>
+```
+```typescript
+export class RecipesComponent implements OnInit {
+    selectedRecipe: Recipe | undefined;
+    // ...
+}
+```
+finally showed in the `RecipeDetailComponent`:
+```typescript
+export class RecipeDetailComponent implements OnInit {
+    @Input() recipe: Recipe = {} as Recipe;
+    // ...
+}
+```
+```angular2html
+<div class="row">
+  <div class="col-xs-12">
+    <img 
+    [src]="recipe.imagePath"
+    [alt]="recipe.name"
+    class="img-responsive"
+    style="max-height: 300px"
+    />
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+      <h1>{{recipe.name}}</h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary dropdown-toggle">
+        Manage <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a href="#">Add To Shopping List</a></li>
+        <li><a href="#">Edit Recipe</a></li>
+        <li><a href="#">Delete Recipe</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+      {{recipe.description}}
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    Ingredients
+  </div>
+</div>
+```
+
+### ViewChild
+
+It is possile to read the content of an input from `ShoppingEditComponent`:
+```angular2html
+<!-- ... -->
+<div class="col-sm-5 form-group">
+    <label for="name">Name</label>
+    <input 
+    type="text"
+    id="name"
+    class="form-control"
+    #nameInput
+    />
+</div>
+<div class="col-sm-2 form-group">
+    <label for="amount">Amount</label>
+    <input 
+    type="number"
+    id="amount"
+    class="form-control"
+    #amountInput
+    />
+</div>
+<!-- ... -->
+```
+```typescript
+export class ShoppingEditComponent implements OnInit {
+    @ViewChild('nameInput') nameInputReference: ElementRef = {} as ElementRef;
+    @ViewChild('amountInput') amountInputReference: ElementRef = {} as ElementRef;
+    @Output() ingredientAdded = new EventEmitter<Ingredient>();
+
+    constructor() {}
+
+    ngOnInit(): void {}
+
+    onAddItem() {
+        const name = this.nameInputReference.nativeElement.value;
+        const amount = this.amountInputReference.nativeElement.value;
+        const ingredient = new Ingredient(name, amount);
+        this.ingredientAdded.emit(ingredient);
+    }
+}
+```
+and send it to the `ShoppingListComponent`:
+```typescript
+export class ShoppingListComponent implements OnInit {
+    ingredients: Ingredient[] = [/* ... */];
+    // ...
+    onIngredientAdded(ingredient: Ingredient) {
+        this.ingredients.push(ingredient);
+    }
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
