@@ -25,6 +25,10 @@ if is change from the previous step, the new code.
     - [View Encapsulation](./03%20-%20Components%20and%20Databinding%20Deep%20Dive/readme.md#view-incapsulation)
     - [Templates](./03%20-%20Components%20and%20Databinding%20Deep%20Dive/readme.md#templates)
     - [Components Lifecycle](./03%20-%20Components%20and%20Databinding%20Deep%20Dive/readme.md#components-lifecycle)
+- [**Directives Deep Dive**](./04%20-%20Directives%20Deep%20Dive/readme.md)
+    - [Recap](./04%20-%20Directives%20Deep%20Dive/readme.md#recap)
+    - [Custom Style Directives](./04%20-%20Directives%20Deep%20Dive/readme.md#custom-style-directives)
+    - [Custom Structural Directives](./04%20-%20Directives%20Deep%20Dive/readme.md#custom-structural-directives)
 
 - [**Assignments**](./99%20-%20Assignments/readme.md)
     - [Assignment 01](./99%20-%20Assignments/readme.md#assignment-01)
