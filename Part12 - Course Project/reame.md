@@ -2,7 +2,7 @@
 
 - [The Basics](#the-basics)
 - [Components And Data Binding Deep Dive](#components-and-databinding-deep-dive)
-- [](#)
+- [Directives Deep Dive](#directives-deep-dive)
 - [](#)
 - [](#)
 
@@ -404,6 +404,43 @@ export class ShoppingListComponent implements OnInit {
 }
 ```
 
+## Directives Deep Dive
+
+It is possile to create a directive using:
+```bash
+ng generate directive directive-name 
+# or 
+ng g d directive-name 
+```
+In order to create a directive to open and closa the dropdowns the
+typescript code is:
+```typescript
+export class DropdownDirective {
+    // property on the DOM element
+    @HostBinding('class.open') isOpen: boolean = false;
+
+    // element on witch the directive is placed
+    constructor(private elRef: ElementRef) {
+         console.log(elRef)
+    }
+
+    // click listener on the page
+    @HostListener('document:click', ['$event']) toggleOpen(event: Event) {
+        this.isOpen = this.elRef.nativeElement.contains(event.target) ? !this.isOpen : false;
+    }
+    // click listener on the elemene, (doesn't close if clicked on other place)
+    // @HostListener('click') toggle() {
+    //     this.isOpen = !this.isOpen;
+    // }
+}
+```
+In the html is id enough to use:
+```angular2html
+<!-- recipe-detail -->
+    <div class="btn-group" appDropdown>
+<!-- header -->
+    <li class="dropdown" appDropdown>
+```
 
 
 
