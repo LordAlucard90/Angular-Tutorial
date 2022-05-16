@@ -29,6 +29,11 @@ if is change from the previous step, the new code.
     - [Recap](./04%20-%20Directives%20Deep%20Dive/readme.md#recap)
     - [Custom Style Directives](./04%20-%20Directives%20Deep%20Dive/readme.md#custom-style-directives)
     - [Custom Structural Directives](./04%20-%20Directives%20Deep%20Dive/readme.md#custom-structural-directives)
+- [**Services And Dependency Injection**](./05%20-%20Services%20And%20Dependency%20Injection/readme.md)
+    - [Intro](./05%20-%20Services%20And%20Dependency%20Injection/readme.md#intro)
+    - [Creating A Logging Service](./05%20-%20Services%20And%20Dependency%20Injection/readme.md#creating-a-logging-service)
+    - [Creating A Data Service](./05%20-%20Services%20And%20Dependency%20Injection/readme.md#creating-a-data-service)
+    - [Advanced Services](./05%20-%20Services%20And%20Dependency%20Injection/readme.md#advanced-services)
 
 - [**Assignments**](./99%20-%20Assignments/readme.md)
     - [Assignment 01](./99%20-%20Assignments/readme.md#assignment-01)
