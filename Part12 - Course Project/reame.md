@@ -3,7 +3,7 @@
 - [The Basics](#the-basics)
 - [Components And Data Binding Deep Dive](#components-and-databinding-deep-dive)
 - [Directives Deep Dive](#directives-deep-dive)
-- [](#)
+- [Services And Dependency Injection](#services-and-dependency-injection)
 - [](#)
 
 ---
@@ -441,6 +441,306 @@ In the html is id enough to use:
 <!-- header -->
     <li class="dropdown" appDropdown>
 ```
+
+## Services And Dependency Injection
+
+### RecipeService
+
+The service:
+```typescript
+export class RecipeService {
+    // data
+    private recipes: Recipe[] = [
+        new Recipe('Firs Recipe', 'Just first test', 'https://placedog.net/500/280'),
+        new Recipe('Second Recipe', 'Just second test', 'https://placedog.net/600/380'),
+    ];
+
+    // new hook to pass the data through components
+    recipeSelected = new EventEmitter<Recipe>();
+
+    getRecipes(): Recipe[] {
+        return this.recipes.slice(); // returns a copy
+    }
+}
+```
+The top provider (automatically injected to children):
+```typescript
+@Component({
+    // ...
+    providers: [RecipeService]
+})
+export class RecipesComponent implements OnInit {
+    selectedRecipe: Recipe | undefined;
+
+    constructor(private recipeService: RecipeService) {}
+
+    ngOnInit(): void {
+        // new subscriber here
+        this.recipeService.recipeSelected.subscribe((recipe: Recipe) => {
+            this.selectedRecipe = recipe;
+        });
+    }
+}
+```
+Loading recipes:
+```typescript
+@Component({
+    // ..
+})
+export class RecipeListComponent implements OnInit {
+    recipes: Recipe[] = [];
+
+    constructor(private recipeService: RecipeService) {}
+
+    ngOnInit(): void {
+        this.recipes = this.recipeService.getRecipes();
+    }
+    // all other not needed anymore
+}
+```
+Emit selected recipe event:
+```typescript
+@Component({
+    // ...
+})
+export class RecipeItemComponent implements OnInit {
+    // ...
+
+    constructor(private recipeService: RecipeService) {}
+
+    // ...
+
+    onSelected() {
+        // new emitter mechanisms
+        this.recipeService.recipeSelected.emit(this.recipe);
+    }
+}
+```
+and remove html emit:
+```angular2html
+<!-- recipe-list.component.html -->
+<div class="row">
+    <div class="col-xs-12">
+        <button class="btn btn-success">New Recipe</button>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-xs-12">
+        <app-recipe-item
+            *ngFor="let curRecipe of recipes"
+            [recipe]="curRecipe"
+            <!-- (recipeSelected)="onRecipeSelected(curRecipe)" -->
+            ></app-recipe-item>
+    </div>
+</div>
+```
+```angular2html
+<!-- recipes.component.html -->
+<div class="row">
+    <div class="col-md-5">
+        <app-recipe-list
+            <!-- (recipeWasSelected)="selectedRecipe = $event" -->
+            ></app-recipe-list>
+    </div>
+    <div class="col-md-7">
+        <app-recipe-detail
+            *ngIf="selectedRecipe; else infoText"
+            [recipe]="selectedRecipe"
+            ></app-recipe-detail>
+        <ng-template #infoText>
+            <p>Please select a Recipe!</p>
+        </ng-template>
+    </div>
+</div>
+```
+
+### ShoppingListService
+
+The new service:
+```typescript
+export class ShoppingListService {
+    private ingredients: Ingredient[] = [new Ingredient('First', 3), new Ingredient('Second', 5)];
+
+    public ingredientsChanged = new EventEmitter<Ingredient[]>();
+
+    getIngredients(): Ingredient[] {
+        return this.ingredients.slice(); // returns a copy
+    }
+
+    addIngredient(ingredient: Ingredient): void {
+        this.ingredients.push(ingredient);
+        this.ingredientsChanged.emit(this.ingredients.slice());
+    }
+}
+```
+it is provided globally because it will be used also in other parts 
+of the application:
+```typescript
+@NgModule({
+    // ...
+    providers: [ShoppingListService],
+    // ...
+})
+export class AppModule {}
+```
+showing the ingredients:
+```typescript
+@Component({
+    // ...
+})
+export class ShoppingListComponent implements OnInit {
+    ingredients: Ingredient[] = [];
+
+    constructor(private shoppingListService: ShoppingListService) {}
+
+    ngOnInit(): void {
+        this.ingredients = this.shoppingListService.getIngredients();
+        this.shoppingListService.ingredientsChanged.subscribe((ingredients: Ingredient[]) => {
+            this.ingredients = ingredients;
+        });
+    }
+}
+```
+adding an ingredient:
+```typescript
+@Component({
+    // ...
+})
+export class ShoppingEditComponent implements OnInit {
+    @ViewChild('nameInput') nameInputReference: ElementRef = {} as ElementRef;
+    @ViewChild('amountInput') amountInputReference: ElementRef = {} as ElementRef;
+
+    constructor(private shoppingListService: ShoppingListService) {}
+
+    ngOnInit(): void {}
+
+    onAddItem() {
+        const name = this.nameInputReference.nativeElement.value;
+        const amount = this.amountInputReference.nativeElement.value;
+        const ingredient = new Ingredient(name, amount);
+        this.shoppingListService.addIngredient(ingredient);
+    }
+}
+```
+clean the html from the not used event listener:
+```angular2html
+<!-- shopping-list.component.html -->
+<div class="row">
+  <div class="col-xs-12">
+    <app-shopping-edit
+        <!-- (ingredientAdded)="onIngredientAdded($event)" -->
+        ></app-shopping-edit>
+    <hr />
+    <ul class="list-group">
+      <a 
+          href="#"
+          class="list-group-item" style="cursor: pointer"
+          *ngFor="let ingredient of ingredients"
+          >
+          {{ingredient.name}} ({{ingredient.amount}})
+      </a>
+    </ul>
+  </div>
+</div>
+```
+
+### Add Ingredients To Recipe
+
+New Recipe Structure:
+```typescript
+export class Recipe {
+    constructor(
+        public name: string,
+        public description: string,
+        public imagePath: string,
+        public ingredients: Ingredient[],
+    ) {}
+}
+```
+show ingredients under current recipe and trigger the sent:
+```typescript
+<!-- recipe-detail.component.html -->
+<!-- ... -->
+<div class="row">
+  <div class="col-xs-12">
+    <div class="btn-group" appDropdown>
+      <button type="button" class="btn btn-primary dropdown-toggle">
+        Manage <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a 
+                (click)="onAddToShoppingList()"
+                style="cursor: pointer"
+                >Add To Shopping List</a></li>
+        <li><a href="#">Edit Recipe</a></li>
+        <li><a href="#">Delete Recipe</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+      {{recipe.description}}
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+      <ul class="list-group">
+          <li 
+              class="list-group-item"
+              *ngFor="let ingredient of recipe.ingredients"
+              >
+              {{ingredient.name}} ({{ingredient.amount}})
+          </li>
+      </ul>
+  </div>
+</div>
+```
+component usagge:
+```typescript
+@Component({
+    // ...
+})
+export class RecipeDetailComponent implements OnInit {
+    // ...
+
+    constructor(private recipeService: RecipeService) {}
+
+    // ...
+
+    onAddToShoppingList() {
+        this.recipeService.addIngredientToShoppingList(this.recipe.ingredients);
+    }
+}
+```
+Services changes:
+```typescript
+@Injectable() // allow to inject other services in in
+export class RecipeService {
+    // ...
+    constructor(private shoppingListService: ShoppingListService){ }
+
+    // ...
+
+    addIngredientToShoppingList(ingredients: Ingredient[]){
+        this.shoppingListService.addIngredients(ingredients);
+    }
+}
+```
+```typescript
+export class ShoppingListService {
+    // ...
+
+    addIngredients(ingredients: Ingredient[]): void {
+        this.ingredients.push(...ingredients); // spread operator
+        this.ingredientsChanged.emit(this.ingredients.slice());
+    }
+}
+```
+
+
+
 
 
 
