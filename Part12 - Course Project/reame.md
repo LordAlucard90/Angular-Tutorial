@@ -4,7 +4,7 @@
 - [Components And Data Binding Deep Dive](#components-and-databinding-deep-dive)
 - [Directives Deep Dive](#directives-deep-dive)
 - [Services And Dependency Injection](#services-and-dependency-injection)
-- [](#)
+- [Routing](#routing)
 
 ---
 
@@ -738,6 +738,330 @@ export class ShoppingListService {
     }
 }
 ```
+
+## Routing
+
+The basic routing setup is done by creating a routing module:
+```typescript
+const routes: Routes = [
+    { 
+        path: '', // use only path: '' gives and error because it is always math
+        redirectTo: '/recipes',
+        pathMatch: 'full' // this restricts the match to strict equal only
+    },
+    { path: 'recipes', component: RecipesComponent },
+    { path: 'shopping-list', component: ShoppingListComponent },
+];
+
+@NgModule({
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule],
+})
+export class AppRoutingModule {}
+```
+adding it to the main app module:
+```typescript
+@NgModule({
+    declarations: [/* ... */],
+    imports: [/* ... */, AppRoutingModule],
+    // ...
+})
+export class AppModule {}
+```
+and setting the routing mechanism:
+```angular2html
+<!-- app.component.html -->
+<app-header></app-header>
+<!-- <app-header (featureSelected)="onNavigate($event)"></app-header> -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+        <router-outlet></router-outlet>
+        <!-- <app-recipes *ngIf="loadedFeature === 'recipe'"></app-recipes> -->
+        <!-- <app-shopping-list *ngIf="loadedFeature === 'shopping-list'"></app-shopping-list> -->
+    </div>
+  </div>
+</div>
+```
+```typescript
+@Component({
+    // ...
+})
+export class AppComponent {
+    // loadedFeature = 'recipe';
+    title = 'course-project';
+
+    // onNavigate(feature: string) {
+    //     this.loadedFeature = feature;
+    // }
+}
+```
+The actual navigation can be set in the header:
+```typescript
+<!-- app.component.html -->
+<!-- ... -->
+    <ul class="nav navbar-nav">
+        <li routerLinkActive="active"><a routerLink="/recipes">Recipes</a></li>
+        <li routerLinkActive="active"><a routerLink="/shopping-list">Shopping List</a></li>
+        <!-- <li><a href="#" (click)="onSelect('recipe')">Recipes</a></li> -->
+        <!-- <li><a href="#" (click)="onSelect('shopping-list')">Shopping List</a></li> -->
+    </ul>
+<!-- ... -->
+```
+in order to fix the page reloagind problems it is necessary to remove 
+all the `href="#"` placed in the application.
+Moreover can be added the `style="cursor: pointer;"`.
+
+### Child Routing
+
+Children routes can be simply added in the routing component:
+```typescript
+const routes: Routes = [
+    // ...
+    {
+        path: 'recipes',
+        component: RecipesComponent,
+        children: [
+            { path: '', component: RecipeStartComponent },
+            { path: ':id', component: RecipeDetailComponent },
+        ],
+    },
+    // ...
+];
+
+@NgModule({
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule],
+})
+export class AppRoutingModule {}
+```
+then must be added the routing mechanism in the parent component:
+```angular2html
+<!-- recipes.component.html -->
+<div class="row">
+    <div class="col-md-5">
+        <app-recipe-list
+            ></app-recipe-list>
+            <!-- (recipeWasSelected)="selectedRecipe = $event" -->
+            <!-- ></app-recipe-list> -->
+    </div>
+    <div class="col-md-7">
+        <router-outlet></router-outlet>
+        <!-- <app-recipe-detail -->
+        <!--     *ngIf="selectedRecipe; else infoText" -->
+        <!--     [recipe]="selectedRecipe" -->
+        <!--     ></app-recipe-detail> -->
+        <!-- <ng-template #infoText> -->
+        <!--     <p>Please select a Recipe!</p> -->
+        <!-- </ng-template> -->
+    </div>
+</div>
+```
+and retrieve the current element from the route
+```typescript
+@Component({
+    // ...
+})
+export class RecipeDetailComponent implements OnInit {
+    // @Input() recipe: Recipe = {} as Recipe;
+    recipe: Recipe = {} as Recipe;
+    id: number = 0;
+
+    constructor(private recipeService: RecipeService, private route: ActivatedRoute) {}
+
+    ngOnInit(): void {
+        // does not reacts to changes
+        // const id = this.route.snapshot.params['id'];
+        this.route.params.subscribe((params: Params) => {
+            this.id = +params['id'];
+            this.recipe = this.recipeService.getRecipe(this.id);
+        });
+        // since it is an angular observer the unsuscribe can be omitted
+    }
+
+    onAddToShoppingList() {
+        this.recipeService.addIngredientToShoppingList(this.recipe.ingredients);
+    }
+}
+```
+update the service:
+```typescript
+@Injectable() // allow to inject other services in in
+export class RecipeService {
+    // ...
+    getRecipe(index: number): Recipe {
+        return this.recipes[index]
+    }
+    // ...
+}
+```
+and the related views to read the current route:
+```angular2html
+<!-- recipe-list.component.html -->
+<div class="row">
+    <div class="col-xs-12">
+        <button class="btn btn-success">New Recipe</button>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-xs-12">
+        <app-recipe-item
+            *ngFor="let curRecipe of recipes; let i = index"
+            [recipe]="curRecipe"
+            [index]="i"
+            ></app-recipe-item>
+            <!-- (recipeSelected)="onRecipeSelected(curRecipe)" -->
+            <!-- ></app-recipe-item> -->
+    </div>
+</div>
+```
+update the old mechanism in the recipe item:
+```angular2html
+<!-- recipe-item.component.html -->
+<a 
+    style="cursor: pointer;"
+    [routerLink]="[index]"
+    routerLinkActive="active"
+    class="list-group-item clearfix"
+    <!-- (click)="onSelected()" not needed -->
+    >
+    <div class="pull-left">
+        <h4 class="list-group-item-heading">{{ recipe.name }}</h4>
+        <p class="list-group-item-text">{{ recipe.description }}</p>
+    </div>
+    <span class="pull-right">
+        <img [src]="recipe.imagePath" alt="{{ recipe.name }}" class="img-responsive" style="max-height: 50px" />
+    </span>
+</a>
+```
+```typescript
+@Component({
+    // ...
+})
+export class RecipeItemComponent implements OnInit {
+    /* @Input() */ recipe: Recipe = {} as Recipe;
+    @Input() index: number = 0;
+
+    constructor(/* private recipeService: RecipeService */) {}
+
+    ngOnInit(): void {}
+
+    // onSelected() { not needed anymoer
+    //     this.recipeService.recipeSelected.emit(this.recipe);
+    // }
+}
+```
+
+### Edit A Recipe
+
+New routes:
+```typescript
+const routes: Routes = [
+    // ...
+    {
+        path: 'recipes',
+        component: RecipesComponent,
+        children: [
+            { path: '', component: RecipeStartComponent },
+            { path: 'new', component: RecipeEditComponent },
+            { path: ':id', component: RecipeDetailComponent },
+            { path: ':id/edit', component: RecipeEditComponent },
+        ],
+    },
+    // ...
+];
+
+@NgModule({
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule],
+})
+export class AppRoutingModule {}
+```
+getting the editing mode:
+```typescript
+@Component({
+    // ...
+})
+export class RecipeEditComponent implements OnInit {
+    id: number | undefined;
+    editMode: boolean = false;
+
+    constructor(private route: ActivatedRoute) {}
+
+    ngOnInit(): void {
+        this.route.params.subscribe((params: Params) => {
+            this.editMode = params['id'] != null;
+            if (this.editMode) {
+                this.id = +params['id'];
+            }
+        });
+        // since it is an angular observer the unsuscribe can be omitted
+    }
+}
+```
+navigate to a new recipe creation page:
+```angular2html
+<!-- recipe-list.component.html -->
+<div class="row">
+    <div class="col-xs-12">
+        <button 
+            class="btn btn-success"
+            (click)="onNewRecipe()"
+            >New Recipe</button>
+    </div>
+</div>
+<!-- ... -->
+```
+```typescript
+@Component({
+    // ...
+})
+export class RecipeListComponent implements OnInit {
+    // ...
+
+    constructor(
+        // ...
+        private router: Router,
+        private route: ActivatedRoute,
+    ) {}
+
+    onNewRecipe() {
+        this.router.navigate(['new'], { relativeTo: this.route });
+    }
+}
+```
+navigatng to the edit page:
+```angular2html
+<!-- recipe-detail.component.html -->
+<!-- ... -->
+    <li><a style="cursor: pointer;" (click)="onEditRecipe()">Edit Recipe</a></li>
+<!-- ... -->
+```
+```typescript
+@Component({
+    // ...
+})
+export class RecipeDetailComponent implements OnInit {
+    // ...
+    constructor(
+        private recipeService: RecipeService,
+        private router: Router,
+        private route: ActivatedRoute,
+    ) {}
+
+    // ...
+
+    onEditRecipe() {
+        // both approaches are valid
+        // this.router.navigate(['edit'], { relativeTo: this.route });
+        this.router.navigate(['../', this.id, 'edit'], { relativeTo: this.route });
+    }
+
+    // ...
+}
+```
+
 
 
 
