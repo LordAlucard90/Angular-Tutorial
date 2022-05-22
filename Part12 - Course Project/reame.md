@@ -5,6 +5,7 @@
 - [Directives Deep Dive](#directives-deep-dive)
 - [Services And Dependency Injection](#services-and-dependency-injection)
 - [Routing](#routing)
+- [Observables](#observables)
 
 ---
 
@@ -1062,6 +1063,58 @@ export class RecipeDetailComponent implements OnInit {
 }
 ```
 
+## Observables
+
+Observables allow to replace the event emitter with a better pattern, 
+the **Subject**:
+```typescript
+export class ShoppingListService {
+    // ...
+
+    // public ingredientsChanged = new EventEmitter<Ingredient[]>();
+    public ingredientsChanged = new Subject<Ingredient[]>();
+
+    // ...
+
+    addIngredient(ingredient: Ingredient): void {
+        this.ingredients.push(ingredient);
+        // this.ingredientsChanged.emit(this.ingredients.slice());
+        this.ingredientsChanged.next(this.ingredients.slice());
+    }
+
+    addIngredients(ingredients: Ingredient[]): void {
+        this.ingredients.push(...ingredients); // spread operator
+        // this.ingredientsChanged.emit(this.ingredients.slice());
+        this.ingredientsChanged.next(this.ingredients.slice());
+    }
+}
+```
+the subscription syntax remains the same, but it is a good practice
+to store the subscription and unsubscribe to it:
+```typescript
+@Component({
+    // ...
+})
+export class ShoppingListComponent implements OnInit, OnDestroy {
+    // ...
+    private shoppingListSubscription: Subscription | undefined;
+
+    // ...
+
+    ngOnInit(): void {
+        this.ingredients = this.shoppingListService.getIngredients();
+        this.shoppingListSubscription = this.shoppingListService.ingredientsChanged.subscribe(
+            // ...
+        );
+    }
+
+    ngOnDestroy(): void {
+        if (this.shoppingListSubscription) {
+            this.shoppingListSubscription.unsubscribe();
+        }
+    }
+}
+```
 
 
 
