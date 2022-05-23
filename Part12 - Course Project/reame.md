@@ -6,6 +6,7 @@
 - [Services And Dependency Injection](#services-and-dependency-injection)
 - [Routing](#routing)
 - [Observables](#observables)
+- [Forms](#forms)
 
 ---
 
@@ -1115,6 +1116,759 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     }
 }
 ```
+
+## Forms
+
+### import
+
+To work with the forms it is necessary to import the FormsModule:
+```typescript
+@NgModule({
+    declarations: [
+        // ...
+    ],
+    imports: [
+        // ...
+        FormsModule
+    ],
+    // ...
+})
+export class AppModule { }
+```
+
+### Shopping List With Template Form
+
+The form can be updated in the html in this way:
+```angular2html
+<!-- shopping-edit.component.html -->
+<!-- added ngSubmit and form parameter type -->
+<form (ngSubmit)="onAddItem(f)" #f="ngForm">
+  <div class="row">
+    <div class="col-sm-5 form-group">
+        <label for="name">Name</label>
+        <input 
+        type="text"
+        id="name"
+        class="form-control"
+        <!-- added name and ngModel to access from typescript -->
+        name="name"
+        ngModel
+        required
+        />
+        <!-- #nameInput -->
+        <!-- /> -->
+    </div>
+    <div class="col-sm-2 form-group">
+        <label for="amount">Amount</label>
+        <input 
+        type="number"
+        id="amount"
+        class="form-control"
+        <!-- added name and ngModel to access from typescript -->
+        name="amount"
+        ngModel
+        required
+        <!-- not null or negative amounts -->
+        [pattern]="'^[1-9]+[0-9]*$'"
+        <!-- or  pattern="^[1-9]+[0-9]*$" -->
+        />
+        <!-- #amountInput -->
+        <!-- /> -->
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+        <button 
+            class="btn btn-success"
+            type="submit"
+            [disabled]="!f.valid"
+            >Add</button>
+            <!-- removed on click, added ngSubmit instaed -->
+            <!-- (click)="onAddItem()" -->
+            <!-- >Add</button> -->
+        <button class="btn btn-danger" type="button">Delete</button>
+        <button class="btn btn-primary" type="button">Clear</button>
+    </div>
+  </div>
+</form>
+```
+and in the component:
+```typescript
+@Component({
+    // ...
+})
+export class ShoppingEditComponent implements OnInit {
+    // not necessary anymore
+    // @ViewChild('nameInput') nameInputReference: ElementRef = {} as ElementRef;
+    // @ViewChild('amountInput') amountInputReference: ElementRef = {} as ElementRef;
+
+    constructor(private shoppingListService: ShoppingListService) {}
+
+    ngOnInit(): void {}
+
+    onSubmit(form: NgForm) { // added input parameter
+        // const name = this.nameInputReference.nativeElement.value;
+        // const amount = this.amountInputReference.nativeElement.value;
+        const {name, amount} = form.value;
+        const ingredient = new Ingredient(name, amount);
+        this.shoppingListService.addIngredient(ingredient);
+    }
+}
+```
+
+### Update Ingredient Template Form
+
+It is possible to load an item in the template form in this way:
+```angular2html
+<!-- shopping-list.component.html -->
+<!-- ... -->
+ <a 
+      class="list-group-item" style="cursor: pointer"
+      *ngFor="let ingredient of ingredients; let i = index"
+      <!-- new method -->
+      (click)="onEditItem(i)"
+      >
+      {{ingredient.name}} ({{ingredient.amount}})
+  </a>
+<!-- ... -->
+```
+needed changed in the service
+```typescript
+export class ShoppingListService {
+    // ...
+    public startedEditing = new Subject<number>();
+
+    // ...
+
+    getIngredient(index: number): Ingredient {
+        return this.ingredients[index];
+    }
+
+    // ...
+
+    updateIngredient(index: number, newIngredient: Ingredient): void {
+        this.ingredients[index] = newIngredient;
+        this.ingredientsChanged.next(this.ingredients.slice());
+    }
+
+    // ...
+}
+```
+changes on the list
+```typescript
+@Component({
+    // ...
+})
+export class ShoppingListComponent implements OnInit, OnDestroy {
+    // ...
+    private shoppingListSubscription: Subscription | undefined;
+
+    // ...
+
+    ngOnInit(): void {
+        // ...
+        this.shoppingListSubscription = this.shoppingListService.ingredientsChanged.subscribe(
+            (ingredients: Ingredient[]) => {
+                this.ingredients = ingredients;
+            },
+        );
+    }
+
+    onEditItem(index: number) {
+        this.shoppingListService.startedEditing.next(index);
+    }
+
+    ngOnDestroy(): void {
+        if (this.shoppingListSubscription) {
+            this.shoppingListSubscription.unsubscribe();
+        }
+    }
+}
+```
+changes in the item edit:
+```typescript
+@Component({
+    // ...
+})
+export class ShoppingEditComponent implements OnInit, OnDestroy {
+    @ViewChild('f') shoppingListForm: NgForm | undefined;
+    private startedEditingSubscription: Subscription;
+    private editMode: boolean = false;
+    private editedItemIndex: number | undefined;
+    private editedItem: Ingredient | undefined;
+
+    constructor(private shoppingListService: ShoppingListService) {
+        this.startedEditingSubscription = shoppingListService.startedEditing.subscribe(
+            (index: number) => {
+                this.editedItemIndex = index;
+                this.editedItem = shoppingListService.getIngredient(index);
+                this.editMode = true;
+                if (this.shoppingListForm) {
+                    this.shoppingListForm.setValue({
+                        name: this.editedItem.name,
+                        amount: this.editedItem.amount,
+                    });
+                }
+            },
+        );
+    }
+
+    ngOnInit(): void { }
+
+    onSubmit(form: NgForm) {
+        const { name, amount } = form.value;
+        const ingredient = new Ingredient(name, amount);
+        if (this.editMode && this.editedItemIndex !== undefined) {
+            this.shoppingListService.updateIngredient(this.editedItemIndex, ingredient);
+        } else {
+            this.shoppingListService.addIngredient(ingredient);
+        }
+        // reset the form
+        this.editMode = false;
+        form.reset();
+    }
+
+    ngOnDestroy(): void {
+        this.startedEditingSubscription.unsubscribe();
+    }
+}
+```
+
+in the end the delete and clear functionalities can be updated in this way:
+```typescript
+export class ShoppingListService {
+    // ...
+
+    updateIngredient(index: number, newIngredient: Ingredient): void {
+        this.ingredients[index] = newIngredient;
+        this.ingredientsChanged.next(this.ingredients.slice());
+    }
+
+    deleteIngredient(index: number): void {
+        this.ingredients.splice(index, 1);
+        this.ingredientsChanged.next(this.ingredients.slice());
+    }
+
+    // ...
+}
+```
+```angular2html
+<!-- shopping-edit.component.html -->
+<!-- ... -->
+  <div class="row">
+    <div class="col-xs-12">
+        <button 
+            class="btn btn-success"
+            type="submit"
+            [disabled]="!f.valid"
+            >{{editMode ? 'Update' : 'Add'}}</button>
+            <!-- (click)="onAddItem()" -->
+            <!-- >Add</button> -->
+        <button 
+            class="btn btn-danger"
+            type="button"
+            *ngIf="editMode"
+            (click)="onDelete()"
+            >Delete</button>
+        <button
+            class="btn btn-primary"
+            type="button"
+            (click)="onClear()"
+            >Clear</button>
+    </div>
+  </div>
+<!-- ... -->
+```
+```typescript
+@Component({
+    // ...
+})
+export class ShoppingEditComponent implements OnInit, OnDestroy {
+    // ...
+
+    onClear() {
+        this.shoppingListForm?.reset();
+        this.editMode = false;
+    }
+
+    onDelete() {
+        if (this.editedItemIndex !== undefined) {
+            this.shoppingListService.deleteIngredient(this.editedItemIndex);
+        }
+        this.onClear();
+    }
+
+    // ...
+}
+```
+
+### Recipe Item With Reactive Form
+
+The reactive Module must be imported in the app module:
+```typescript
+@NgModule({
+    declarations: [
+        // ...
+    ],
+    imports: [
+        // ...
+        ReactiveFormsModule
+    ],
+    // ...
+})
+export class AppModule {}
+```
+The form looks like:
+```angular2html
+<!-- recipe-edit.component.html -->
+<div class="row">
+    <div class="col-xs-12">
+        <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col-xs-12">
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <button type="submit" class="btn btn-danger">Cancel</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input 
+                            type="text"
+                            id="name"
+                            class="form-control"
+                            formControlName="name" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="imagePath">Image Url</label>
+                        <input 
+                            type="text"
+                            id="imagePath"
+                            class="form-control"
+                            formControlName="imagePath" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <img src="" class="img=responsive" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea 
+                            type="text"
+                            id="description"
+                            class="form-control"
+                            rows="6"
+                            formControlName="description" >
+                            </textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div 
+                    class="col-xs-12"
+                    formArrayName="ingredients"
+                    >
+                    <div 
+                        class="row"
+                        *ngFor="let ingredientControl of controls; let i = index"
+                        [formGroupName]="i"
+                        style="margin-top: 10px;"
+                        >
+                        <div class="col-xs-8">
+                            <input 
+                                type="text"
+                                class="form-control"
+                                formControlName="name"
+                                />
+                        </div>
+                        <div class="col-xs-2">
+                            <input 
+                                type="number"
+                                class="form-control"
+                                formControlName="amount"
+                                />
+                        </div>
+                        <div class="col-xs-2">
+                            <button 
+                                type="button"
+                                class="btn btn-danger"
+                                >X</button>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button 
+                                type="button"
+                                class="btn btn-success"
+                                (click)="onAddIngredient()"
+                                >Add Ingredient</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+```
+the logic is:
+```typescript
+@Component({
+    // ...
+})
+export class RecipeEditComponent implements OnInit {
+    id: number | undefined;
+    editMode: boolean = false;
+    recipeForm: FormGroup;
+
+    constructor(private route: ActivatedRoute, private recipeService: RecipeService) {
+        this.recipeForm = this.initForm();
+    }
+
+    ngOnInit(): void {
+        this.route.params.subscribe((params: Params) => {
+            this.editMode = params['id'] != null;
+            if (this.editMode) {
+                this.id = +params['id'];
+                // reinitialize the form
+                this.recipeForm = this.initForm();
+            }
+        });
+        // since it is an angular observer the unsuscribe can be omitted
+    }
+
+    private initForm(): FormGroup {
+        let recipeName = '';
+        let recipeImagePath = '';
+        let recipeDescription = '';
+        let recipeIngredients = new FormArray([]);
+
+        if (this.editMode && this.id !== undefined) {
+            const recipe = this.recipeService.getRecipe(this.id);
+            recipeName = recipe.name;
+            recipeImagePath = recipe.imagePath;
+            recipeDescription = recipe.description;
+            if (recipe.ingredients) {
+                for (let ingredient of recipe.ingredients) {
+                    recipeIngredients.push(
+                        new FormGroup({
+                            name: new FormControl(ingredient.name),
+                            amount: new FormControl(ingredient.amount),
+                        }),
+                    );
+                }
+            }
+        }
+
+        return new FormGroup({
+            name: new FormControl(recipeName),
+            imagePath: new FormControl(recipeImagePath),
+            description: new FormControl(recipeDescription),
+            ingredients: recipeIngredients,
+        });
+    }
+
+    get controls() {
+        return (<FormArray>this.recipeForm.get('ingredients')).controls;
+    }
+
+    onAddIngredient() {
+        (<FormArray>this.recipeForm.get('ingredients')).push(
+            new FormGroup({
+                name: new FormControl(),
+                amount: new FormControl(),
+            }),
+        );
+    }
+
+    onSubmit() {
+        console.log(this.recipeForm);
+    }
+}
+```
+
+### Reactive Validation
+
+The validation can be added in the typescript code:
+```typescript
+@Component({
+    // ...
+})
+export class RecipeEditComponent implements OnInit {
+    // ...
+
+    private initForm(): FormGroup {
+        // ...
+
+        if (this.editMode && this.id !== undefined) {
+            // ...
+            if (recipe.ingredients) {
+                for (let ingredient of recipe.ingredients) {
+                    recipeIngredients.push(
+                        new FormGroup({
+                            name: new FormControl(ingredient.name, Validators.required),
+                            amount: new FormControl(ingredient.amount, [
+                                Validators.required,
+                                Validators.pattern(/^[1-9]+[0-9]*$/),
+                            ]),
+                        }),
+                    );
+                }
+            }
+        }
+
+        // ...
+    }
+
+    // ...
+
+    onAddIngredient() {
+        (<FormArray>this.recipeForm.get('ingredients')).push(
+            new FormGroup({
+                name: new FormControl(null, Validators.required),
+                amount: new FormControl(null, [
+                    Validators.required,
+                    Validators.pattern(/^[1-9]+[0-9]*$/),
+                ]),
+            }),
+        );
+    }
+
+    // ...
+}
+```
+it fan be used in to disable the save button:
+```angular2html
+<!-- recipe-edit.component.html -->
+<!-- ... -->
+    <button 
+        type="submit"
+        class="btn btn-success"
+        [disabled]="!recipeForm.valid"
+                        >Save</button>
+<!-- ... -->
+```
+and the default classes can be used to style the errors:
+```css
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+    border: 1px solid red;
+}
+```
+
+### Creating Updating Or Deleting Recipes
+
+Once finished the preparation the recipes must added or updated 
+in the service:
+```typescript
+@Injectable()
+export class RecipeService {
+    // ...
+
+    recipeChanged = new Subject<Recipe[]>();
+
+    // ...
+
+    addRecipe(recipe: Recipe) {
+        this.recipes.push(recipe);
+        this.recipeChanged.next(this.recipes.slice())
+    }
+
+    updateRecipe(index: number, newRecipe: Recipe) {
+        this.recipes[index] = newRecipe;
+        this.recipeChanged.next(this.recipes.slice())
+    }
+
+    deleteRecipe(index: number) {
+        this.recipes.splice(index, 1);
+        this.recipeChanged.next(this.recipes.slice());
+    }
+}
+```
+in the edit component:
+```typescript
+@Component({
+    // ...
+})
+export class RecipeEditComponent implements OnInit {
+    // ...
+
+    constructor(
+        private route: ActivatedRoute,
+        private router: Router,
+        private recipeService: RecipeService,
+    ) {
+        this.recipeForm = this.initForm();
+    }
+
+    // ...
+
+    onDeleteIngredient(index: number) {
+        (<FormArray>this.recipeForm.get('ingredients')).removeAt(index);
+    }
+
+    onCancel() {
+        this.router.navigate(['../'], { relativeTo: this.route });
+    }
+
+    onSubmit() {
+        // const recipe = new Recipe(
+        //     this.recipeForm.value['name'],
+        //     this.recipeForm.value['description'],
+        //     this.recipeForm.value['imagePath'],
+        //     this.recipeForm.value['ingredients'],
+        // );
+        // or since the format is the same
+        const recipe = this.recipeForm.value; 
+
+        if (this.editMode && this.id !== undefined) {
+            this.recipeService.updateRecipe(this.id, recipe);
+        } else {
+            this.recipeService.addRecipe(recipe);
+        }
+        // console.log(this.recipeForm);
+        this.onCancel();
+    }
+}
+```
+```angular2html
+<!-- recipe-edit.component.html -->
+<!-- ... -->
+    <button 
+        class="btn btn-danger"
+        (click)="onCancel()"
+        >Cancel</button>
+<!-- ... -->
+    <button 
+        type="button"
+        class="btn btn-danger"
+        (click)="onDeleteIngredient(i)"
+        >X</button>
+<!-- ... -->
+```
+to correctly display the new list, also the recipe list component
+must be updated:
+```typescript
+@Component({
+    // ...
+})
+export class RecipeListComponent implements OnInit, OnDestroy {
+    // ...
+    recipeChangedSubscription: Subscription;
+
+    constructor( /* ... */) {
+        this.recipeChangedSubscription = this.recipeService.recipeChanged.subscribe(
+            (recipes: Recipe[]) => {
+                this.recipes = recipes;
+            },
+        );
+    }
+
+    ngOnInit(): void {
+        // still needed for first load
+        this.recipes = this.recipeService.getRecipes();
+    }
+
+    // ...
+
+    ngOnDestroy(): void {
+        this.recipeChangedSubscription.unsubscribe();
+    }
+}
+```
+and for the deletion nust be updated the recipe edit component:
+```typescript
+@Component({
+    // ...
+})
+export class RecipeDetailComponent implements OnInit {
+    // ...
+
+    onDeleteRecipe() {
+        this.recipeService.deleteRecipe(this.id);
+        this.router.navigate(['/recipes'])
+    }
+}
+```
+```angular2html
+<!-- recipe-detail.component.html -->
+<!-- ... -->
+    <li><a style="cursor: pointer;" (click)="onDeleteRecipe()">Delete Recipe</a></li>
+<!-- ... -->
+```
+
+### Correctly Load Image Preview
+
+The image preview can be correctly displayed in this way:
+```angular2html
+<!-- recipe-edit.component.html -->
+<!-- ... -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="form-group">
+                <label for="imagePath">Image Url</label>
+                <input 
+                    type="text"
+                    id="imagePath"
+                    class="form-control"
+                    formControlName="imagePath" 
+                    <!-- refenrece  -->
+                    #imagePath
+                    />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- bind src to reference -->
+            <img [src]="imagePath.value" class="img=responsive" />
+        </div>
+    </div>
+<!-- ... -->
+```
+
+### Fix Service
+
+Every time the page is changed, the recipe service is recreated from scratch
+since it is injected in the Recipes component.\
+To avoid this behaviour it must be injected at the app module level:
+```typescript
+@Component({
+    selector: 'app-recipes',
+    templateUrl: './recipes.component.html',
+    styleUrls: ['./recipes.component.css'],
+    // providers: [RecipeService],
+})
+export class RecipesComponent implements OnInit {
+    // ...
+}
+```
+```typescript
+@NgModule({
+    declarations: [
+        // ...
+    ],
+    // ...
+    providers: [ShoppingListService, RecipeService],
+    // ...
+})
+export class AppModule { }
+```
+
+
+
+
+
 
 
 
