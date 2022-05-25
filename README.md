@@ -34,6 +34,12 @@ if is change from the previous step, the new code.
     - [Creating A Logging Service](./05%20-%20Services%20And%20Dependency%20Injection/readme.md#creating-a-logging-service)
     - [Creating A Data Service](./05%20-%20Services%20And%20Dependency%20Injection/readme.md#creating-a-data-service)
     - [Advanced Services](./05%20-%20Services%20And%20Dependency%20Injection/readme.md#advanced-services)
+- [**Routing**](./06%20-%20Routing/readme.md)
+    - [Intro](./06%20-%20Routing/readme.md#intro)
+    - [Programmatic Navigation](./06%20-%20Routing/readme.md#programmatic-navigation)
+    - [Query Parameters](./06%20-%20Routing/readme.md#query-parameters)
+    - [Improving Routing](./06%20-%20Routing/readme.md#improving-routing)
+    - [Passing Data](./06%20-%20Routing/readme.md#passing-data)
 
 - [**Assignments**](./99%20-%20Assignments/readme.md)
     - [Assignment 01](./99%20-%20Assignments/readme.md#assignment-01)
