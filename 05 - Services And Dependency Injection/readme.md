@@ -358,6 +358,25 @@ These events are not longer required:
 
 ```
 
+### Injectable Update
+
+In the latest angular version it is possible to use:
+```typescript
+@Injectable({providedIn: 'root'})
+export class AccountsService {
+    // ...
+}
+```
+instead of defining in the the app module:
+```typescript
+@NgModule({
+  // ...,
+  providers: [AccountsService, LoggingService],
+  // ...
+})
+export class AppModule { }
+```
+
 ### Cross-Component Communication
 
 Is possible create an event emitter in the service 

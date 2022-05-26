@@ -40,6 +40,10 @@ if is change from the previous step, the new code.
     - [Query Parameters](./06%20-%20Routing/readme.md#query-parameters)
     - [Improving Routing](./06%20-%20Routing/readme.md#improving-routing)
     - [Passing Data](./06%20-%20Routing/readme.md#passing-data)
+- [**Observables**](./07%20-%20Observables/readme.md)
+    - [Intro](./07%20-%20Observables/readme.md#intro)
+    - [Using Observables](./07%20-%20Observables/readme.md#using-observables)
+    - [Advanced Operations](./07%20-%20Observables/readme.md#advanced-operations)
 
 - [**Assignments**](./99%20-%20Assignments/readme.md)
     - [Assignment 01](./99%20-%20Assignments/readme.md#assignment-01)
