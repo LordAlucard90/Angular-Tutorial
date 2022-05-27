@@ -44,6 +44,12 @@ if is change from the previous step, the new code.
     - [Intro](./07%20-%20Observables/readme.md#intro)
     - [Using Observables](./07%20-%20Observables/readme.md#using-observables)
     - [Advanced Operations](./07%20-%20Observables/readme.md#advanced-operations)
+- [**Forms**](./08%20-%20Forms/readme.md)
+    - [Intro](./08%20-%20Forms/readme.md#intro)
+    - [Template Driven](./08%20-%20Forms/readme.md#template-driven)
+    - [Validation](./08%20-%20Forms/readme.md#validation)
+    - [Reactive](./08%20-%20Forms/readme.md#reactive)
+    - [Advanced Reactive](./08%20-%20Forms/readme.md#advanced-reactive)
 
 - [**Assignments**](./99%20-%20Assignments/readme.md)
     - [Assignment 01](./99%20-%20Assignments/readme.md#assignment-01)
