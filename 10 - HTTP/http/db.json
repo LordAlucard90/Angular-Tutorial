@@ -1,0 +1,14 @@
+{
+  "posts": [
+    {
+      "title": "Test 1",
+      "content": "Dummy content.",
+      "id": 1
+    },
+    {
+      "title": "Test 2",
+      "content": "Dummy content 2",
+      "id": 2
+    }
+  ]
+}
