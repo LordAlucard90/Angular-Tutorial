@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label>Project Name</label>
+          <input
+            type="text"
+            formControlName="project"
+            class="form-control">
+          <span
+            *ngIf="project?.invalid && myForm?.get('project')?.touched"
+            class="help-message">
+            <span *ngIf="project?.errors?.['nameNotAllowed']">
+              Please enter a valid project name!
+            </span>
+            <span *ngIf="project?.errors?.['required']">
+              Please enter a project name!
+            </span>
+          </span>
+        </div>
+        <div class="form-group">
+          <label>Mail</label>
+          <input
+            type="text"
+            formControlName="email"
+            class="form-control">
+          <span
+            *ngIf="myForm?.get('email')?.invalid && myForm?.get('email')?.touched"
+            class="help-message">
+              Please enter a valid email!
+          </span>
+        </div>
+        <div class="form-group">
+          <label></label>
+          <select
+            formControlName="status"
+            class="form-control">
+              <option value="">Select a Status</option>
+              <option *ngFor="let status of status_list" value="{{status}}">
+                  {{status}}
+              </option>
+          </select>
+          <span
+            *ngIf="myForm?.get('status')?.invalid && myForm?.get('status')?.touched"
+            class="help-message">
+              Please select a status!
+          </span>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="myForm.invalid">Submit!</button>
+      </form>
+    </div>
+  </div>
+</div>
