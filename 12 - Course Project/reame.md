@@ -7,6 +7,7 @@
 - [Routing](#routing)
 - [Observables](#observables)
 - [Forms](#forms)
+- [Http](#http)
 
 ---
 
@@ -1865,42 +1866,259 @@ export class RecipesComponent implements OnInit {
 export class AppModule { }
 ```
 
+## Http
 
+### Server
 
+In the course is used [firebase](https://firebase.google.com/),
+but I prefer something local like
+[json-server](https://github.com/typicode/json-server):
+```bash
+npm install -g json-server
 
+json-server --watch db.json
+# server listening at http://localhost:3000
+```
+the content of `db.json` must be:
+```json
+{
+  "recipes": []
+}
+```
 
+### Dependency
 
+To use the http client must be imported the
+```typescript
+import { HttpClientModule } from '@angular/common/http';
 
+@NgModule({
+    declarations: [
+        // ...
+    ],
+    imports: [HttpClientModule, /* ... */ ],
+    // ...
+})
+export class AppModule { }
+```
 
+### Storing Data
 
+I needed to add an id to the model:
+```typescript
+export class Recipe {
+    public id: number | undefined;
 
+    constructor(
+        public name: string,
+        public description: string,
+        public imagePath: string,
+        public ingredients: Ingredient[],
+    ) { }
+}
+```
+In the header can be managed the sotring:
+```typescript
+@Component({
+    // ...
+})
+export class HeaderComponent implements OnInit {
+    // ...
 
+    constructor(private dataStorageService: DataStorageService) { }
 
+    onSaveData() {
+        this.dataStorageService.storeRecipes();
+    }
+}
+```
+```angular2html
+<!-- header.component.html -->
+<!-- ... -->
+    <li><a style="cursor: pointer;" (click)="onSaveData()">Save Data</a></li>
+<!-- ... -->
+```
+the storage functionality can be implement in this way:
+```typescript
+@Injectable({ providedIn: 'root' })
+export class DataStorageService {
+    private baseUrl = 'http://localhost:3000/recipes';
+    constructor(private http: HttpClient, private recipeService: RecipeService) { }
 
+    storeRecipes() {
+        const recipes = this.recipeService.getRecipes();
+        for (let i = 0; i < recipes.length; i++) {
+            const curRecipe = recipes[i];
+            if (curRecipe.id) {
+                this.http
+                    .put<Recipe>(`${this.baseUrl}/${curRecipe.id}`, curRecipe)
+                    .subscribe(recipe => {
+                        console.log(recipe);
+                        this.recipeService.updateRecipe(i, recipe);
+                    });
+            } else {
+                this.http.post<Recipe>(`${this.baseUrl}`, curRecipe).subscribe(recipe => {
+                    console.log(recipe);
+                    this.recipeService.updateRecipe(i, recipe);
+                });
+            }
+        }
+    }
+}
+```
 
+### Fetching Data
 
+As for the storing, the fetching starts from the header:
+```typescript
+@Component({
+    // ...
+})
+export class HeaderComponent implements OnInit {
+    // ...
 
+    constructor(private dataStorageService: DataStorageService) { }
 
+    onLoadData() {
+        this.dataStorageService.fetchRecipes();
+    }
+}
+```
+```angular2html
+<!-- header.component.html -->
+<!-- ... -->
+    <li><a style="cursor: pointer;" (click)="onLoadData()">Fetch Data</a></li>
+<!-- ... -->
+```
+In the service is is needed a new set method:
+```typescript
+@Injectable()
+export class RecipeService {
+    private recipes: Recipe[] = [ ];
 
+    // ...
 
+    setRecipes(recipes: Recipe[]) {
+        this.recipes = recipes
+        this.recipeChanged.next(this.recipes.slice());
+    }
 
+// ...
+}
+```
+the recipes can then be loaded in this way:
+```typescript
+@Injectable({ providedIn: 'root' })
+export class DataStorageService {
+    // ...
 
+    fetchRecipes() {
+        this.http
+            .get<Recipe[]>(`${this.baseUrl}`)
+            // prevend undefined ingredients
+            .pipe(
+                map(recipes => {
+                    return recipes.map(recipe => {
+                        return {
+                            ...recipe,
+                            ingredients: recipe.ingredients ? recipe.ingredients : [],
+                        };
+                    });
+                }),
+            )
+            .subscribe(recipes => {
+                console.log(recipes);
+                this.recipeService.setRecipes(recipes);
+            });
+    }
+}
+```
 
+### Resolver
 
+In order to avoid error on accessing recipes on `/recipes/:id` id the data
+is not yet loaded, it is possible to add a resolver that automatically
+fetch them.\
+First of all the DataStorageService must be updated:
+```typescript
+@Injectable({ providedIn: 'root' })
+export class DataStorageService {
+    // ...
 
+    fetchRecipes() {
+        return this.http.get<Recipe[]>(`${this.baseUrl}`).pipe(
+            map(recipes => {
+                return recipes.map(recipe => {
+                    return {
+                        ...recipe,
+                        ingredients: recipe.ingredients ? recipe.ingredients : [],
+                    };
+                });
+            }),
+            tap(recipes => {
+                this.recipeService.setRecipes(recipes);
+            }),
+        );
+    }
+}
+```
+and the header component accordantly:
+```typescript
+@Component({
+    // ...
+})
+export class HeaderComponent implements OnInit {
+    // ...
 
+    onLoadData() {
+        this.dataStorageService.fetchRecipes().subscribe(recipes => {
+            console.log('recipes fetched.');
+        });
+    }
+}
+```
+now it is possible to add a resolver:
+```typescript
+@Injectable({ providedIn: 'root' })
+export class RecipeResolverService implements Resolve<Recipe[]> {
+    constructor(
+        private dataStorageService: DataStorageService,
+        private recipeService: RecipeService,
+    ) { }
 
+    resolve(
+        route: ActivatedRouteSnapshot,
+        state: RouterStateSnapshot,
+    ): Recipe[] | Observable<Recipe[]> | Promise<Recipe[]> {
+        const recipes = this.recipeService.getRecipes();
 
+        if (recipes.length === 0) {
+            return this.dataStorageService.fetchRecipes();
+        } else {
+            return recipes;
+        }
+    }
+}
+```
+and improve the routing:
+```typescript
+const routes: Routes = [
+    // ...
+    {
+        path: 'recipes',
+        component: RecipesComponent,
+        children: [
+            // ...
+            { path: ':id', component: RecipeDetailComponent, resolve: [RecipeResolverService] },
+            // ...
+        ],
+    },
+    // ...
+];
 
-
-
-
-
-
-
-
-
-
-
-
+@NgModule({
+    // ...
+})
+export class AppRoutingModule { }
+```
 

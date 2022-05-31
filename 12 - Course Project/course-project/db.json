@@ -1,0 +1,42 @@
+{
+  "recipes": [
+    {
+      "name": "Firs Recipe",
+      "description": "Just first test",
+      "imagePath": "https://placedog.net/500/280",
+      "ingredients": [
+        {
+          "name": "Ingredient A",
+          "amount": 1
+        },
+        {
+          "name": "Ingredient B",
+          "amount": 2
+        }
+      ],
+      "id": 1
+    },
+    {
+      "name": "Second Recipe",
+      "description": "Just second test",
+      "imagePath": "https://placedog.net/600/380",
+      "ingredients": [
+        {
+          "name": "Ingredient A",
+          "amount": 3
+        },
+        {
+          "name": "Ingredient C",
+          "amount": 4
+        }
+      ],
+      "id": 2
+    },
+    {
+      "name": "Third Recipe",
+      "description": "Just third test",
+      "imagePath": "https://placedog.net/600/400",
+      "id": 3
+    }
+  ]
+}

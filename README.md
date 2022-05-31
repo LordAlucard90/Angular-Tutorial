@@ -92,4 +92,13 @@ if is change from the previous step, the new code.
     - [Assignment 07](./11%20-%20Assignments/readme.md#assignment-07)
     - [Assignment 08](./11%20-%20Assignments/readme.md#assignment-08)
 
+- [**Course Project**](./12%20-%20Course Project/readme.md)
+    - [The Basics](./12%20-%20Course Project/readme.md#the-basics)
+    - [Components And Data Binding Deep Dive](./12%20-%20Course Project/readme.md#components-and-databinding-deep-dive)
+    - [Directives Deep Dive](./12%20-%20Course Project/readme.md#directives-deep-dive)
+    - [Services And Dependency Injection](./12%20-%20Course Project/readme.md#services-and-dependency-injection)
+    - [Routing](./12%20-%20Course Project/readme.md#routing)
+    - [Observables](./12%20-%20Course Project/readme.md#observables)
+    - [Forms](./12%20-%20Course Project/readme.md#forms)
+    - [Http](./12%20-%20Course Project/readme.md#http)
 

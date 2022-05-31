@@ -6,21 +6,27 @@ import { Recipe } from './recipe.model';
 
 @Injectable() // allow to inject other services in in
 export class RecipeService {
-    private recipes: Recipe[] = [
-        new Recipe('Firs Recipe', 'Just first test', 'https://placedog.net/500/280', [
-            new Ingredient('Ingredient A', 1),
-            new Ingredient('Ingredient B', 2),
-        ]),
-        new Recipe('Second Recipe', 'Just second test', 'https://placedog.net/600/380', [
-            new Ingredient('Ingredient A', 3),
-            new Ingredient('Ingredient C', 4),
-        ]),
-    ];
+    // private recipes: Recipe[] = [
+    // new Recipe('Firs Recipe', 'Just first test', 'https://placedog.net/500/280', [
+    //     new Ingredient('Ingredient A', 1),
+    //     new Ingredient('Ingredient B', 2),
+    // ]),
+    // new Recipe('Second Recipe', 'Just second test', 'https://placedog.net/600/380', [
+    //     new Ingredient('Ingredient A', 3),
+    //     new Ingredient('Ingredient C', 4),
+    // ]),
+    // ];
+    private recipes: Recipe[] = [];
 
     // recipeSelected = new EventEmitter<Recipe>();
     recipeChanged = new Subject<Recipe[]>();
 
     constructor(private shoppingListService: ShoppingListService) { }
+
+    setRecipes(recipes: Recipe[]) {
+        this.recipes = recipes;
+        this.recipeChanged.next(this.recipes.slice());
+    }
 
     getRecipes(): Recipe[] {
         return this.recipes.slice(); // returns a copy
