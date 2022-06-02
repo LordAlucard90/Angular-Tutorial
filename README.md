@@ -102,7 +102,7 @@ if is change from the previous step, the new code.
     - [Forms](./12%20-%20Course Project/readme.md#forms)
     - [Http](./12%20-%20Course Project/readme.md#http)
 
-- [**20Authentication**](./13%20-%20Authentication/readme.md)
+- [**Authentication**](./13%20-%20Authentication/readme.md)
     - [Server](./13%20-%20Authentication/readme.md#server)
     - [Login](./13%20-%20Authentication/readme.md#login)
     - [User](./13%20-%20Authentication/readme.md#user)
@@ -113,5 +113,8 @@ if is change from the previous step, the new code.
     - [Auto Login And Logout](./13%20-%20Authentication/readme.md#auto-login-and-logout)
     - [Auth Guard](./13%20-%20Authentication/readme.md#auth-guard)
 
+- [**Dynamic Components**](./14%20-%20Dynamic%20Components/readme.md)
+    - [ngIf](./14%20-%20Dynamic%20Components/readme.md#ngIf)
+    - [Programmatically Construction](./14%20-%20Dynamic%20Components/readme.md#programmatically-construction)
 
 
