@@ -117,4 +117,12 @@ if is change from the previous step, the new code.
     - [ngIf](./14%20-%20Dynamic%20Components/readme.md#ngIf)
     - [Programmatically Construction](./14%20-%20Dynamic%20Components/readme.md#programmatically-construction)
 
+- [**Modules, Optimizations And Deploy**](./15%20-%20Modules,%20Optimizations%20And%20Deploy/readme.md)
+    - [Modules](#modules)
+    - [Feature Modules](./15%20-%20Modules,%20Optimizations%20And%20Deploy/readme.md#feature-modules)
+    - [Shared Modules](./15%20-%20Modules,%20Optimizations%20And%20Deploy/readme.md#shared-modules)
+    - [Core Modules](./15%20-%20Modules,%20Optimizations%20And%20Deploy/readme.md#core-modules)
+    - [Lazy Loading](./15%20-%20Modules,%20Optimizations%20And%20Deploy/readme.md#lazy-loading)
+    - [Compilation](./15%20-%20Modules,%20Optimizations%20And%20Deploy/readme.md#compilation)
+    - [Deployment](./15%20-%20Modules,%20Optimizations%20And%20Deploy/readme.md#deployment)
 
