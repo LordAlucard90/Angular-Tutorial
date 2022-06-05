@@ -92,15 +92,15 @@ if is change from the previous step, the new code.
     - [Assignment 07](./11%20-%20Assignments/readme.md#assignment-07)
     - [Assignment 08](./11%20-%20Assignments/readme.md#assignment-08)
 
-- [**Course Project**](./12%20-%20Course Project/readme.md)
-    - [The Basics](./12%20-%20Course Project/readme.md#the-basics)
-    - [Components And Data Binding Deep Dive](./12%20-%20Course Project/readme.md#components-and-databinding-deep-dive)
-    - [Directives Deep Dive](./12%20-%20Course Project/readme.md#directives-deep-dive)
-    - [Services And Dependency Injection](./12%20-%20Course Project/readme.md#services-and-dependency-injection)
-    - [Routing](./12%20-%20Course Project/readme.md#routing)
-    - [Observables](./12%20-%20Course Project/readme.md#observables)
-    - [Forms](./12%20-%20Course Project/readme.md#forms)
-    - [Http](./12%20-%20Course Project/readme.md#http)
+- [**Course Project**](./12%20-%20Course%20Project/readme.md)
+    - [The Basics](./12%20-%20Course%20Project/readme.md#the-basics)
+    - [Components And Data Binding Deep Dive](./12%20-%20Course%20Project/readme.md#components-and-databinding-deep-dive)
+    - [Directives Deep Dive](./12%20-%20Course%20Project/readme.md#directives-deep-dive)
+    - [Services And Dependency Injection](./12%20-%20Course%20Project/readme.md#services-and-dependency-injection)
+    - [Routing](./12%20-%20Course%20Project/readme.md#routing)
+    - [Observables](./12%20-%20Course%20Project/readme.md#observables)
+    - [Forms](./12%20-%20Course%20Project/readme.md#forms)
+    - [Http](./12%20-%20Course%20Project/readme.md#http)
 
 - [**Authentication**](./13%20-%20Authentication/readme.md)
     - [Server](./13%20-%20Authentication/readme.md#server)
@@ -125,4 +125,15 @@ if is change from the previous step, the new code.
     - [Lazy Loading](./15%20-%20Modules,%20Optimizations%20And%20Deploy/readme.md#lazy-loading)
     - [Compilation](./15%20-%20Modules,%20Optimizations%20And%20Deploy/readme.md#compilation)
     - [Deployment](./15%20-%20Modules,%20Optimizations%20And%20Deploy/readme.md#deployment)
+
+- [**NgRx**](./16%20-%20NgRx/readme.md)
+    - [Intro](./16%20-%20NgRx/readme.md#intro)
+    - [First Integration](./16%20-%20NgRx/readme.md#first-integration)
+    - [Version Update](./16%20-%20NgRx/readme.md#version-update)
+    - [Auth Store](./16%20-%20NgRx/readme.md#auth-store)
+    - [Effects](./16%20-%20NgRx/readme.md#effects)
+    - [Router Store](./16%20-%20NgRx/readme.md#router-store)
+    - [Recipes Store](./16%20-%20NgRx/readme.md#recipes-store)
+
+
 
