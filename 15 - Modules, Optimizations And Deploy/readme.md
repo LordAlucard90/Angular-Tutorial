@@ -14,7 +14,7 @@
 
 ## Modules
 
-[Official Dovumentation](https://angular.io/guide/ngmodules)
+[Official Documentation](https://angular.io/guide/ngmodules)
 
 The main app module definition is divided in:
 - **declarations**: list of components, directives and custom pipes used in the module
@@ -22,7 +22,7 @@ The main app module definition is divided in:
 - **providers**: list of services that need to be injected (or using `providedIn: 'root'`)
 - **bootstrap**: the component that start the module
 
-The routing module could been have diclared in the main, but in order to keep
+The routing module could been have declared in the main, but in order to keep
 everything cleaner it is better to separate it.
 It contains:
 - **imports**: the Router module with a special declaration syntax
@@ -36,7 +36,7 @@ reusability and optimization.
 
 ## Feature Modules
 
-All the comoponents and other modules must be redeclared in each module,
+All the components and other modules must be redeclared in each module,
 only services can be declared only in the root module and can be available
 to all the application.
 
