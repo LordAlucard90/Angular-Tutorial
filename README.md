@@ -139,4 +139,11 @@ if is change from the previous step, the new code.
     - [Installation](./17%20-%20Angular%20Universal/readme.md#installation)
     - [NestJS](./17%20-%20Angular%20Universal/readme.md#nestjs)
 
+- [**Standalone Components**](./18%20-%20Standalong%20Components/readme.md)
+    - [Intro](./18%20-%20Standalong%20Components/readme.md#intro)
+    - [Integration](./18%20-%20Standalong%20Components/readme.md#integration)
+    - [Directives](./18%20-%20Standalong%20Components/readme.md#standalone)
+    - [Services](./18%20-%20Standalong%20Components/readme.md#services)
+    - [Routing](./18%20-%20Standalong%20Components/readme.md#routing)
+    - [Lazy Loading](./18%20-%20Standalong%20Components/readme.md#lazy-loading)
 
