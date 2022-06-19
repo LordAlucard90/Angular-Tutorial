@@ -142,8 +142,14 @@ if is change from the previous step, the new code.
 - [**Standalone Components**](./18%20-%20Standalong%20Components/readme.md)
     - [Intro](./18%20-%20Standalong%20Components/readme.md#intro)
     - [Integration](./18%20-%20Standalong%20Components/readme.md#integration)
-    - [Directives](./18%20-%20Standalong%20Components/readme.md#standalone)
+    - [Directives](./18%20-%20Standalong%20Components/readme.md#directives)
     - [Services](./18%20-%20Standalong%20Components/readme.md#services)
     - [Routing](./18%20-%20Standalong%20Components/readme.md#routing)
     - [Lazy Loading](./18%20-%20Standalong%20Components/readme.md#lazy-loading)
+
+- [**Angular Animations**](./19%20-%20Angular%20Animations/readme.md)
+    - [Intro](./19%20-%20Angular%20Animations/readme.md#intro)
+    - [Change State](./19%20-%20Angular%20Animations/readme.md#change-state)
+    - [Transition](./19%20-%20Angular%20Animations/readme.md#transition)
+    - [Callbacks](./19%20-%20Angular%20Animations/readme.md#callbacks)
 

@@ -4,7 +4,7 @@
 
 - [Intro](#intro)
 - [Integration](#integration)
-- [Directives](#standalone)
+- [Directives](#directives)
 - [Services](#services)
 - [Routing](#routing)
 - [Lazy Loading](#lazy-loading)
