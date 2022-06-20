@@ -153,3 +153,9 @@ if is change from the previous step, the new code.
     - [Transition](./19%20-%20Angular%20Animations/readme.md#transition)
     - [Callbacks](./19%20-%20Angular%20Animations/readme.md#callbacks)
 
+- [**Angular Animations**](./20%20-%20Offline%20Capabilities/readme.md)
+    - [Intro](./20%20-%20Offline%20Capabilities/readme.md#intro)
+    - [Service Workers](./20%20-%20Offline%20Capabilities/readme.md#service-workers)
+    - [Assets Cache](./20%20-%20Offline%20Capabilities/readme.md#assets-cache)
+    - [Data Cache](./20%20-%20Offline%20Capabilities/readme.md#data-cache)
+
