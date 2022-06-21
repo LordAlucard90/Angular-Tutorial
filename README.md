@@ -159,3 +159,16 @@ if is change from the previous step, the new code.
     - [Assets Cache](./20%20-%20Offline%20Capabilities/readme.md#assets-cache)
     - [Data Cache](./20%20-%20Offline%20Capabilities/readme.md#data-cache)
 
+- [**Angular Animations**](./21%20-%20Angular%20CLI/readme.md)
+    - [ng new](./21%20-%20Angular%20CLI/readme.md#ng-new)
+    - [Configuration Files](./21%20-%20Angular%20CLI/readme.md#configuration-files)
+    - [CLI Commands](./21%20-%20Angular%20CLI/readme.md#cli-commands)
+    - [angular.json](./21%20-%20Angular%20CLI/readme.md#angular.json)
+    - [Schematics](./21%20-%20Angular%20CLI/readme.md#schematics)
+    - [ng add](./21%20-%20Angular%20CLI/readme.md#ng-add)
+    - [ng generate](./21%20-%20Angular%20CLI/readme.md#ng-generate)
+    - [ng update](./21%20-%20Angular%20CLI/readme.md#ng-update)
+    - [ng deploy](./21%20-%20Angular%20CLI/readme.md#ng-deploy)
+    - [Differential Loading](./21%20-%20Angular%20CLI/readme.md#differential-loading)
+    - [Multiple Projects](./21%20-%20Angular%20CLI/readme.md#multiple-projects)
+
