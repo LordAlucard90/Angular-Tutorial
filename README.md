@@ -159,7 +159,7 @@ if is change from the previous step, the new code.
     - [Assets Cache](./20%20-%20Offline%20Capabilities/readme.md#assets-cache)
     - [Data Cache](./20%20-%20Offline%20Capabilities/readme.md#data-cache)
 
-- [**Angular Animations**](./21%20-%20Angular%20CLI/readme.md)
+- [**Angular CLI**](./21%20-%20Angular%20CLI/readme.md)
     - [ng new](./21%20-%20Angular%20CLI/readme.md#ng-new)
     - [Configuration Files](./21%20-%20Angular%20CLI/readme.md#configuration-files)
     - [CLI Commands](./21%20-%20Angular%20CLI/readme.md#cli-commands)
@@ -171,4 +171,15 @@ if is change from the previous step, the new code.
     - [ng deploy](./21%20-%20Angular%20CLI/readme.md#ng-deploy)
     - [Differential Loading](./21%20-%20Angular%20CLI/readme.md#differential-loading)
     - [Multiple Projects](./21%20-%20Angular%20CLI/readme.md#multiple-projects)
+
+- [**Testing**](./22%20-%20Testing/readme.md)
+    - [Spec Files](./22%20-%20Testing/readme.md#spec-files)
+    - [TestBed](./22%20-%20Testing/readme.md#testbed)
+    - [Assertion](./22%20-%20Testing/readme.md#assertion)
+    - [Running Tests](./22%20-%20Testing/readme.md#running-tests)
+    - [Testing Service Injection](./22%20-%20Testing/readme.md#testing-service-injection)
+    - [Testing Template Content](./22%20-%20Testing/readme.md#testing-template-content)
+    - [Async](./22%20-%20Testing/readme.md#async)
+    - [Isolated Tests](./22%20-%20Testing/readme.md#isolated-tests)
+    - [Documentation](./22%20-%20Testing/readme.md#documentation)
 

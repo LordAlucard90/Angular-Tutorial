@@ -1,6 +1,20 @@
 # Testing
 
-## spec.ts Structure
+## Content
+
+- [Spec Files](#spec-files)
+- [TestBed](#testbed)
+- [Assertion](#assertion)
+- [Running Tests](#running-tests)
+- [Testing Service Injection](#testing-service-injection)
+- [Testing Template Content](#testing-template-content)
+- [Async](#async)
+- [Isolated Tests](#isolated-tests)
+- [Documentation](#documentation)
+
+---
+
+## Spec Files
 
 The tests are collected in units:
 
@@ -21,8 +35,6 @@ Each test is independent from the other tests, it is possible to run some code b
 beforeEach(async(() => {...}));
 ```
 
----
-
 ## TestBed
 
 `TestBed` is the main Angular testing utility object.
@@ -42,8 +54,6 @@ This object has some useful methods like:
 - **detectChanges** - triggers the changes to render the template.
 - **whenStable** - is like `detectChanges` but for asynchronous tasks.
 
----
-
 ## Assertion
 
 The assertion are verified with the `expect` function.
@@ -51,26 +61,22 @@ The assertion are verified with the `expect` function.
 This function receives the actual value `expect(actual_value)` and, to verify the assertion, is called a method from the result:
 
 ```typescript
-expect(actual_value).assertSomethig(expected_value);
+expect(actual_value).assertSomething(expected_value);
 ```
 Some assertion examples are_
 - `toBeTruthy()` - the object must exists.
 - `toEqual(expected_value)` - **expected_value** and **actual_value** must be equal.
 - `toContain(expected_value)` - **actual_value** must contain the **expected_value**.
 
----
-
 ## Running Tests
 
 The CLI command is:
 
 ```bash
-$ ng test
+ng test
 ```
 
 The command compiles and runs the tests, the result can be viewed in the command line or in the browser at http://localhost:9876
-
----
 
 ## Testing Service Injection
 
@@ -97,7 +103,7 @@ import {UserService} from './user.service';
   providers: [UserService]
 })
 export class UserComponent implements OnInit {
-  user: { name: string };
+  user: { name: string } = { name: '' };
   isLoggedIn = false;
 
   constructor(private userService: UserService) { }
@@ -157,8 +163,6 @@ The service in the test is retrieved from the `dubugElement`:
 userService = fixture.debugElement.injector.get(UserService);
 ```
 
----
-
 ## Testing Template Content
 
 It is possible to test template content like:
@@ -190,8 +194,6 @@ it('should display the user name if the user is logged in', () => {
 });
 ```
 
----
-
 ## Async
 
 It is possible to simulate asynchronous tasks like:
@@ -209,7 +211,7 @@ export class DataService {
 }
 ```
 
-#### async
+#### Real Async
 
 When a promise is returned `detectChanges` is not enough to detect the changes
 
@@ -233,7 +235,7 @@ it('should fetch data with the async', async (() => {
 `spyOn` is used to simulate methods.
 
 
-#### fakeAsync
+#### Fake Async
 
 In order to reduce the promise test execution time it is possible to use `fakeAsync` and `tick`:
 
@@ -258,7 +260,6 @@ beforeEach(() => {
     // fixture.detectChanges();
 });
 ```
----
 
 ## Isolated Tests
 
@@ -289,10 +290,10 @@ describe('ReversePipe', () => {
   });
 });
 ```
----
 
 ## Documentation
 
 - https://angular.io/guide/testing
 - https://github.com/angular/angular-cli/wiki/test
 - https://github.com/angular/angular-cli/wiki/e2e
+
