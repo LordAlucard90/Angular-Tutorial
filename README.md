@@ -183,3 +183,5 @@ if is change from the previous step, the new code.
     - [Isolated Tests](./22%20-%20Testing/readme.md#isolated-tests)
     - [Documentation](./22%20-%20Testing/readme.md#documentation)
 
+- [**TypeScript**](./23%20-%20TypeScript/readme.md)
+
