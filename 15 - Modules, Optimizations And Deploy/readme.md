@@ -713,6 +713,13 @@ files to be used in the deployment.
 The hosting procedure changes depending from the host, but in general
 the static files must be uploaded in the host and that's mainly all.
 
-But it is important to be sure tha the server is configured to always serve
-the index.html file and not the sub ones, otherwise it will result in a 4040 error.
+It is important to be sure tha the server is configured to always serve
+the index.html file and not the sub ones, otherwise it will result in a 404 error.
 
+It is also possible to use [serve](https://github.com/vercel/serve) 
+to host the build result locally:
+```bash
+sudo npm i -g serve
+
+serve -s dist/course-project/ # by defautl is hosted at http://localhost:3000
+```
