@@ -47,7 +47,7 @@ while `routes.json` should be:
   "recipes": 660
 }
 ```
-if works like linux, [**owner**/**logged**/**public**], `4` read, `2` write.
+it works like linux, [**owner**/**logged**/**public**], `4` read, `2` write.
 
 ## Login
 
