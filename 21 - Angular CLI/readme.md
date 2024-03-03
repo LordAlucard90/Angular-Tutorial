@@ -501,7 +501,7 @@ options:
 
 In this case the project is still using angular@13:
 ```
-s$ ng update
+$ ng update
 
 Using package manager: 'npm'
 Collecting installed dependencies...
@@ -518,6 +518,9 @@ Found 25 dependencies.
     There might be additional packages which don't provide 'ng update' capabilities that are outdated.
     You can update the additional packages by running the update command of your package manager.
 ```
+It is important to note that the cli will allow to update only one version at a 
+time, it is not possible to go from the version 14 to the 16 without passing
+by the version 15.
 
 ## ng deploy
 
