@@ -18,7 +18,8 @@ The default html file served by angular is `src/`**index.html**.
 In the body of the **index.html** there is the tag **<app-root></app-root>**,
 this tag will be dynamically managed by the root component of the application.
 
-The root component is stored in `src/app/` and is made up the ``app.component.*`` files.
+The root component is stored in `src/app/` and is made up of the
+``app.component.*`` files.
 
 ### app.component.ts
 
@@ -29,7 +30,7 @@ that the component will replace.
 
 ### main.ts
 
-`src/`**main.ts** is the first typescript file elaborate by the framework.
+`src/`**main.ts** is the first typescript file elaborated by the framework.
 
 The first import checks the production or development state.
 ```typescript
@@ -68,9 +69,12 @@ Where **AppComponent** is the component **app.component.ts**  introduced above.
 ### Loading Process
 
 1. Angular gets started **main.ts**.
-2. In **main.ts** is bootstrap an Angular application, more specific **AppComponent**.
-3. Angular analyzes **AppComponent** and reads the set up of **@Component** where is define **\<app-root\>** selector.
-4. Angular can now handle **index.html** and the selector **\<app-root\>** and replace it with the html code of the **AppComponent**.
+2. In **main.ts** is bootstrap an Angular application, more specific
+**AppComponent**.
+3. Angular analyzes **AppComponent** and reads the set up of **@Component**
+where is define **\<app-root\>** selector.
+4. Angular can now handle **index.html** and the selector **\<app-root\>**
+and replace it with the html code of the **AppComponent**.
 
 
 ## Components
@@ -122,13 +126,14 @@ import {ServerComponent} from "./server/server.component";
     AppComponent,
     ServerComponent
   ],
-  ...
+  // ...
 ```
 
 ### Call Component Selector
 
 Since the component is not the bootstrap component the selector
-**<app-server></app-server>** could only be called from the **app.component.html** file.
+**<app-server></app-server>** could only be called from the
+**app.component.html** file.
 
 ### Alternative Creation Method
 
@@ -183,7 +188,7 @@ This strategy could be used if the html size is very short.
 
 ### Style
 
-In **app.component.css** the style for the app could be defined. 
+In the **app.component.css** file can be defined the style for the app.
 
 Unlike the template file for the css could be linked multiple style files sheets,
 as for the template, a file o inline/multi-line text could be used.
@@ -272,7 +277,7 @@ For property binding is used the `[property]="data"` syntax.
 Property binding allows Angular to update the template
 when a value from TypeScript change.
 
-In this case after two seconds the **Add Server** button become enabled:
+In this case after two seconds the **Add Server** button becomes enabled:
 ```typescript
 export class ServersComponent implements OnInit {
   allowNewServers: boolean = false;
@@ -306,7 +311,8 @@ It is not possible to mix them.
 
 ### Event Binding
 
-Event binding allows to call a method on a specific property or event of a element.
+Event binding allows to call a method on a specific property or event of 
+an element.
 
 ```angular2html
 <button
@@ -320,7 +326,7 @@ Event binding allows to call a method on a specific property or event of a eleme
 
 ```typescript
 export class ServersComponent implements OnInit {
-  ...
+  // ...
   serverCreationStatus: string = 'No server was created!';
   onCreateServer(){
     this.serverCreationStatus = 'Server was created!';
@@ -338,34 +344,39 @@ by passing it to the method with `$event`.
 <p>{{serverName}}</p>
 ```
 
-In TypeScript is possible to log it in the console to see the content and take data from it.
-```typescript
-private serverName: string = '';
+In TypeScript is possible to log it in the console to see the content and take
+data from it.
 
-onUpdateServerName(event: Event) {
-console.log(event);
-this.serverName = (<HTMLInputElement>event.target).value;
+```typescript
+export class ServersComponent implements OnInit {
+  private serverName: string = '';
+
+  onUpdateServerName(event: Event) {
+    console.log(event);
+    this.serverName = (<HTMLInputElement>event.target).value;
+  }
 }
 ```
 
 ### Two-Way-Binding
 
-Two-Way-Binding need the `ngModel` directive in the **app.module**:
+The Two-Way-Binding uses the `ngModel` directive, it is defined inside the
+**FormsModule** that must be then imported in the **app.module**:
 ```typescript
 import {FormsModule} from "@angular/forms";
 
 @NgModule({
-  ...
+  // ...
   imports: [
     BrowserModule,
     FormsModule
   ],
-  ...
+  // ...
 })
 ```
 
 The `ngModule` works bidirectionally so, if **serverName** has a default value,
-that text will become the `<input>` default value. 
+then that text will become the `<input>` default value. 
 This do not append with Event Binding.
 
 ```angular2html
@@ -382,9 +393,9 @@ with a `console.log` or searching it on google.
 
 ## Directives
 
-Directives are instructions in the DOM, there are two type of directives:
+Directives are instructions in the DOM and they can be of two types:
 - **Structural directives** - add or remove elements.
-- **Attribute directives** - change the element they were placed on.
+- **Attribute directives** - change the element where they were placed.
 
 ```angular2html
 <p appTurnGreen>Receives a green background!</p>
@@ -400,9 +411,9 @@ export class TurnGreenDirective{
 }
 ```
 
-### ngIF
+### ngIf
 
-The ng structural directives need the `*` to be recognised.
+The `ngIf` structural directives need the `*` to be recognised.
 
 The `*ngIf="serverCreated"` inserts or removes the element depending
 if the value or the function into the `"..."` is true or false.
@@ -417,6 +428,15 @@ It is possible to display an else condition in this way:
 </ng-template>
 ```
 
+Angular 17 syntax:
+```angular2html
+@if (serverCreated) {
+  <p>Server was created, server name is {{serverName}}</p>
+} @else {
+  <p>No server was created!</p>
+}
+```
+
 ### ngStyle
 
 Since `ngStyle` modifies a property of an html tag like`Property Binding`,
@@ -427,7 +447,7 @@ it is used the same syntax: `[ngStyle]="new_style"`.
   {{'Server'}} with ID {{serverID}} is {{getServerState()}}.
 </p>
 ```
-In this case `ngStyle` change dynamically the attribute of the css property
+In this case `ngStyle` change dynamically the attribute of the CSS property
 according to the return value of the function.
 ```typescript
 getColor() {
@@ -435,7 +455,7 @@ getColor() {
 }
 ```
 
-### ngClass Directive
+### ngClass
 
 Like `ngStyle`, `ngClass` uses the `Property Binding` syntax.
 
@@ -453,12 +473,13 @@ and it removes it when it becomes false.
 @Component({
   // ...
   styles: ['.online {color: white}',],
+  // ...
 })
 ```
 
-### ngFor Directive
+### ngFor
 
-The `ngFor` directive is a structural directive that add all the elements of a list.
+The `ngFor` is a structural directive that add all the elements of a list.
 
 ```angular2html
 <app-server *ngFor="let server of servers"></app-server>
@@ -473,7 +494,14 @@ export class ServersComponent implements OnInit {
     this.servers.push(this.serverName);
     this.serverCreationStatus = 'Server was created! Name is ' + this.serverName;
   }
-  ...
+  // ...
+}
+```
+
+Angular 17 syntax:
+```angular2html
+@for (server of servers; track $index) {
+  <app-server></app-server>
 }
 ```
 
