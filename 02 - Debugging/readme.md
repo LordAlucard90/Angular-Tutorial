@@ -30,14 +30,14 @@ onAddServer() {
 }
 ```
 
-*Cannot read property 'push' of undefined* means that **servers** is undefined. 
+Cannot read property 'push' of undefined* means that **servers** is undefined. 
 
 The value is initialized but not declared, ``servers = [];`` solves the problem.
----
 
 ## Partial Working Error
 
-In the example after adding some servers it is possible deleted by clicking on them, this does not work for the last item.
+In the example after adding some servers it is possible deleted them by clicking 
+on them, this does not work for the last item.
 
 On the html the current item is passed.
 ```angular2html
@@ -55,24 +55,31 @@ onRemoveServer(id: number) {
 }
 ```
 
-With Chrome it is possible go to `Sources`>`localhost:4200`>`main.js` and search for the correspondent line:
+With Chrome it is possible go to `Sources`>`localhost:4200`>`main.js` and
+search for the correspondent line:
 ```javascript
 AppComponent.prototype.onRemoveServer = function (id) {
     var position = id + 1;
     this.servers.splice(position, 1);
 ```
 
-Clicking on a line of `main.js` it is created a breakpoint in the correspondent TypeScript file thanks to source maps.
+Clicking on a line of `main.js` it is created a breakpoint in the correspondent
+TypeScript file thanks to source maps.
 
-With the breakpoint is possible check the variables value in the position assignment and the evolution step by step and, clicking on the current step variable, see that the delete position in wrong.
+With the breakpoint is possible check the variables value in the position 
+assignment and the evolution step by step and, clicking on the current step 
+variable, see that the delete position in wrong.
 
-It is possible access directly to the TypeScript files from `Sources`>`webpack://`>`.`>`src`>`app`>`app.component.ts`.
+It is possible access directly to the TypeScript files from 
+`Sources`>`webpack://`>`.`>`src`>`app`>`app.component.ts`.
 
 ---
 
 ## Augury
 
-[Augury](https://augury.rangle.io/) is a browser extension that helps to analyze Angular applications.
+[Augury](https://augury.rangle.io/) is a browser extension that helps to 
+analyze Angular applications.
 
-Augury displays components, their properties and their injections, dependencies, routing and so on.
+Augury displays components, their properties and their injections, 
+dependencies, routing and so on.
 
