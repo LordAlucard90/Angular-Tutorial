@@ -73,9 +73,7 @@ export class CockpitComponent implements OnInit {
 }
 ```
 
-`this.serverElements`
-
-#### Elements moved to cockpit
+#### Elements moved to app
 
 Html
 ```angular2html
@@ -92,7 +90,8 @@ Html
 </div>
 ```
 
-The `*ngFor="let element of serverElements"` will be moved to the **app.component**:
+The `*ngFor="let element of serverElements"` will be moved to 
+the **app.component**:
 ```angular2html
 <app-server-element *ngFor="let server of serverElements"></app-server-element>
 ```
@@ -118,11 +117,13 @@ export class ServerElementComponent implements OnInit {
 ```
 
 `@Input()` decorator is necessary to make the property visible 
-from the parent component.
+from the child component.
 
 **app.component.ts**
 ```typescript
-serverElements: ServerElement[] = [{type: 'server', name: 'Test Server', content: 'Dummy Content'}];
+serverElements: ServerElement[] = [
+    {type: 'server', name: 'Test Server', content: 'Dummy Content'}
+];
 ```
 
 Declaration of a single `server-element`.
@@ -225,8 +226,9 @@ The style for the **blueprintserver** must be copied into the
 ```css
 p { color: blue; }
 ```
-Angular assigns each element a specific attribute,
-the attribute is used to manage the specific style for each element.
+Angular assigns to each element a specific attribute,
+the attribute is used to manage the specific style that is not shared to other
+components.
 
 ### Encapsulation
 
@@ -258,7 +260,7 @@ this references can be used only in the template.
   type="text" 
   class="form-control" 
   #serverNameInput>
-...
+<!-- ... -->
 <button
   class="btn btn-primary"
   (click)="onAddServer(serverNameInput)">Add Server</button>
@@ -278,7 +280,8 @@ The value received by the function is the html element.
 
 ### @ViewChild
 
-Another method to call a reference from a template to a componentis `@ViewChild`.
+Another method to call a reference from a template to a component is
+`@ViewChild`.
 
 ```angular2html
 <input
@@ -287,13 +290,13 @@ Another method to call a reference from a template to a componentis `@ViewChild`
   #serverContentInput>
 ```
 
-It is possible select the string that must be referentiated:
+It is possible select the string that must be referenced:
 
 ```typescript
 @ViewChild('serverContentInput') serverContentInput: ElementRef = {} as ElementRef;
 ```
 
-It is also possible select a component to referentiate.
+It is also possible select a component to reference.
 
 ```typescript
 @ViewChild('serverContentInput') serverContentInput: ElementRef = {} as ElementRef;
@@ -325,8 +328,8 @@ With the `ng-content` directive placed into a child component:
 </div>
 ```
 
-In this way, it is possible tell Angular to insert the content
-found on the parent component.
+It is possible to tell Angular where to insert the content found on the parent
+component.
 
 ```angular2html
 <app-server-element
@@ -343,14 +346,22 @@ found on the parent component.
 
 During the creation of a new component Angular goes for some different phases
 that can be intercepted to run some code:
-- **ngOnChanges** - called on creation and after a bound input property changes.
-- **ngOnInit** - called once the component in initialized, after the constructor.
-- **ngDoCheck** - called during every change detection run.
-- **ngAfterContentInit** - called after content (ng-content) has been projected into view.
-- **ngAfterContentCheck** - called every time the projected content has been checked.
-- **ngAfterViewInit** - called after the component's view (and child views) has been initialized.
-- **ngAfterViewCheck** - called every time the view (and child views) have been checked.
-- **ngOnDestroy** - called once the component is about to be destroyed.
+- **ngOnChanges**:\
+called on creation and after a bound input property changes.
+- **ngOnInit**:\
+called once the component in initialized, after the constructor.
+- **ngDoCheck**:\
+called during every change detection run.
+- **ngAfterContentInit**:\
+called after content (ng-content) has been projected into view.
+- **ngAfterContentCheck**:\
+called every time the projected content has been checked.
+- **ngAfterViewInit**:\
+called after the component's view (and child views) has been initialized.
+- **ngAfterViewCheck**:\
+called every time the view (and child views) have been checked.
+- **ngOnDestroy**:\
+called once the component is about to be destroyed.
 
 All the method needs to implement the correspondent interface to work correctly.
 
@@ -368,7 +379,7 @@ export class ServerElementComponent implements OnInit, OnChanges {
     console.log('ngOnChanges!');
     console.log(changes);
   }
-  ...
+  // ...
 }
 ```
 `ngOnChanges` receives a input value with this information:
