@@ -54,7 +54,7 @@ This is an example of `ngClass` and `ngStyle` usage:
 ### Create Custom Directives
 
 Create a folder with the `directive-name` in the app folder
-and create and a new file named  `directive-name.directive.ts`:
+and create a new file named  `directive-name.directive.ts`:
 
 ```
 app

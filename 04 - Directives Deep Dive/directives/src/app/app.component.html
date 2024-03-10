@@ -3,7 +3,7 @@
     <div class="col-xs-12">
       <button
         class="btn btn-primary"
-        (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
+        (click)="onlyOdd = !onlyOdd">Only show {{ onlyOdd ? 'even' : 'odd' }} numbers</button>
       <br><br>
       <ul class="list-group">
         <div *ngIf="onlyOdd">
