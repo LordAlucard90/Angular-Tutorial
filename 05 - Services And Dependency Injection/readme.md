@@ -12,7 +12,7 @@
 ## Intro
 
 A service is used to centralize behaviours,
-is used to avoid code duplication or to manage the data storing.
+it is used to avoid code duplication or to manage the data storing.
 
 
 ### Version Notes
@@ -29,7 +29,7 @@ and create and a new file named  `service-name.service.ts`:
 ```
 app
 └── service-name
-    └── service-name.directive.ts
+    └── service-name.service.ts
 ```
 
 Unlike the **Components** and **Directives**, **Services** do not need a decorator:
@@ -64,16 +64,17 @@ export class NewAccountComponent {
 
 ### Hierarchical Injector
 
-The dependencies injector is a tool that inject the dependencies of a class into a component.
+The dependencies injector is a tool that inject the dependencies of a class 
+into a component.
 
 The **correct** way to inject a service is:
 
 ```typescript
-...
+// ...
 import {LoggingService} from '../logging/logging.service';
 
 @Component({
-  ...,
+  // ...,
   providers: [LoggingService]
 })
 export class NewAccountComponent {
@@ -194,16 +195,16 @@ export class NewAccountComponent {
 
 ### Understanding Hierarchical Injector
 
-The Angular dependencies injectors is a Hierarchical Injector,
+The Angular dependencies injectors is an Hierarchical Injector,
 it knows how to create a instance of a service for a component
 and all its child components.\
 More specifically they all will receive the same instance of the service.\
 Injection Levels:
-- **AppModule Level**\
+- **AppModule Level**:\
 in this case the service is available to all components and services.
-- **AppComponent Level**\
+- **AppComponent Level**:\
 in this case the service is available to all components only.
-- **Any Other Component Level**\
+- **Any Other Component Level**:\
 in this case the service is available to the component and all its child components.
 
 When a service is declared on a bottom level, it override the any upper declarations.
@@ -360,14 +361,14 @@ These events are not longer required:
 
 ### Injectable Update
 
-In the latest angular version it is possible to use:
+In the latests Angular versions it is possible to use:
 ```typescript
 @Injectable({providedIn: 'root'})
 export class AccountsService {
     // ...
 }
 ```
-instead of defining in the the app module:
+instead of defining in the app module:
 ```typescript
 @NgModule({
   // ...,
@@ -407,7 +408,7 @@ export class AccountComponent {
 export class NewAccountComponent {
   constructor(private accountsService: AccountsService){
     this.accountsService.statusUpdate.subscribe(
-      (status: string) => alert('New Status: ' + status)
+      (status: string) => alert('New Status: ' + status);
     );
   }
   // ...
