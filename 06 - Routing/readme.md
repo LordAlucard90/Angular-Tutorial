@@ -28,12 +28,12 @@ const appRoutes: Routes = [
   { path: 'servers', component: ServersComponent },
 ];
 @NgModule({
-  ...,
+  // ...,
   imports: [
-    ...,
+    // ...,
     RouterModule.forRoot(appRoutes)
   ],
-  ...
+  // ...
 })
 ```
 
@@ -96,7 +96,8 @@ The `routerLink` can have:
   - in this case Angular will go to `/path` url.
 - **Relative Path** - `routerLink="path"` or `routerLink="./path"`
   - in this case Angular will go to `current_path/path` url.
-  - it is also possible user `routerLink="../path"` to move to `parent_path/path` url
+  - it is also possible to use `routerLink="../path"` to move 
+  to `parent_path/path` url
 
 ### Styling Active Router Link
 
@@ -116,7 +117,7 @@ with `routerLinkActive`:
 For `/servers` and `/users` the `/` like is active because`routerLinkActive`
 checks only if the current path is equal or a child of the `routerLink`.
 
-To force the equal check is necessary add `routerLinkActiveOptions`:
+To force the equality check, it is necessary to add `routerLinkActiveOptions`:
 
 ```angular2html
 <a class="nav-link" 
@@ -132,7 +133,7 @@ To force the equal check is necessary add `routerLinkActiveOptions`:
 
 ### Router Navigate
 
-Is is possible program a navigation after a computation:
+Is is possible to program a navigation after a computation:
 
 ```angular2html
 <button class="btn btn-primary" (click)="onLoadServers()">Load Servers</button>
@@ -141,10 +142,10 @@ Is is possible program a navigation after a computation:
 ```typescript
 import {Router} from '@angular/router';
 
-@Component({...})
+@Component({/* ... */})
 export class HomeComponent implements OnInit {
+  constructor(private router: Router) { }
   // ...
-
   onLoadServers() {
     // do something complex
     this.router.navigate(['/servers']);
@@ -239,6 +240,7 @@ const appRoutes: Routes = [
   // ...
 ];
 ```
+
 ### Fetching Route Parameters Reactively
 
 If from a user details component there is a link to another user like:
@@ -277,7 +279,8 @@ export class UserComponent implements OnInit {
 
 `snapshot` is used on every creation.
 
-`params` subscription is used only if the route change inside the same component.
+`params` subscription is used only if the route changes inside the same
+component.
 
 ### Subscription Life Cycle
 
@@ -474,6 +477,7 @@ And import the new module in the **app.module.ts**:
   ],
   // ...
 })
+export class AppModule { }
 ```
 
 ### Route Guards
@@ -616,7 +620,7 @@ export class EditServerComponent implements OnInit, CanComponentDeactivate {
 }
 ```
 
-As the previous guard it has to be added to the route definition:
+As the previous guards, it has to be added to the route definition:
 
 ```typescript
 const appRoutes: Routes = [
@@ -749,13 +753,13 @@ but it could be also retrieved from a HTTP request.
 
 ### Location Strategies
 
-All the routes are managed from Angular so on a real server not
-correctly configured will be raised a 404 page.
+All the routes are managed by Angular so on a real server, not
+correctly configured, it will be raised a 404 page.
 
 To avoid the 404 server page, all the possible request must be directed
 to the `index.html` file that provides the Angular application.
 
-if this is not possible, there is also the `hashtag` alternative:
+If this is not possible, there is also the `hashtag` alternative:
 
 ```typescript
 ...

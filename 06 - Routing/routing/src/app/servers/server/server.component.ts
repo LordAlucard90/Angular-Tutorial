@@ -13,7 +13,7 @@ export class ServerComponent implements OnInit {
     server: Server = {} as Server;
 
     constructor(
-        private serversService: ServersService,
+        // private serversService: ServersService,
         private activateRoute: ActivatedRoute,
         private router: Router,
     ) {}
