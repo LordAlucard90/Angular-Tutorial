@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {Account, AccountsService} from './accounts/accounts.service';
 
 @Component({
@@ -7,9 +7,14 @@ import {Account, AccountsService} from './accounts/accounts.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit{
+  private accountsService: AccountsService;
   accounts: Account[] = [];
 
-  constructor(private accountsService: AccountsService){}
+  // old syntax
+  // constructor(private accountsService: AccountsService){}
+  constructor(){
+    this.accountsService = inject(AccountsService);
+  }
 
   ngOnInit(): void {
     this.accounts = this.accountsService.accounts;

@@ -378,6 +378,28 @@ instead of defining in the app module:
 export class AppModule { }
 ```
 
+#### Inject
+
+The new `inject` method allows a new syntax:
+```typescript
+export class AppComponent implements OnInit{
+  // new syntax
+  private accountsService: AccountsService;
+  accounts: Account[] = [];
+
+  // old syntax
+  // constructor(private accountsService: AccountsService){}
+  constructor(){
+    this.accountsService = inject(AccountsService);
+  }
+
+  ngOnInit(): void {
+    this.accounts = this.accountsService.accounts;
+  }
+}
+```
+
+
 ### Cross-Component Communication
 
 Is possible create an event emitter in the service 
