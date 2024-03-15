@@ -23,15 +23,18 @@ export class HomeComponent implements OnInit, OnDestroy {
     constructor() { }
 
     ngOnInit() {
-        // Old
+        // Old old
         // const myNumbers = Observable.interval(1000)
         //   .map((data: number) => {
         //     return data * 2;
         //   }
         // );
 
+        // Old
+        // const observable = Observable.create((observer: Observer<number>) => {...});
+
         // Current
-        const observable = Observable.create((observer: Observer<number>) => {
+        const observable = new Observable((observer: Observer<number>) => {
             let count = 0;
             setInterval(() => {
                 observer.next(count);
@@ -42,7 +45,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             }, 1000);
         });
         this.observableSubscription = observable.subscribe((data: number) => {
-            console.log(data);
+            console.log("Observable:", data);
         });
 
         const myNumbers = interval(1000).pipe(
@@ -55,10 +58,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         );
 
         this.myNumbersSubscription = myNumbers.subscribe((number: Number) => {
-            console.log(number);
+            console.log("My numbers:", number);
         });
 
-        const myObservable = Observable.create((observer: Observer<string>) => {
+        const myObservable = new Observable((observer: Observer<string>) => {
             setTimeout(() => {
                 observer.next('first package');
             }, 2000);
@@ -66,7 +69,7 @@ export class HomeComponent implements OnInit, OnDestroy {
                 observer.next('second package');
             }, 4000);
             setTimeout(() => {
-                //   observer.error('this does not work');
+                  // observer.error('this does not work');
                 observer.complete();
             }, 5000);
             setTimeout(() => {
@@ -75,13 +78,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         });
         this.customSubscription = myObservable.subscribe(
             (data: String) => {
-                console.log(data);
+                console.log("Custom:", data);
             },
             (error: String) => {
-                console.log(error);
+                console.log("Custom error:", error);
             },
             () => {
-                console.log('Completed');
+                console.log("custom:", 'Completed');
             },
         );
     }

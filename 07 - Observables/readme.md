@@ -10,11 +10,13 @@
 
 ## Intro
 
-An observable is a data source of various type: User Input (Events), HTTP Requests, etc..
+An observable is a data source of various type: User Input (Events), 
+HTTP Requests, etc..
 
 The Observable/Observer pattern in used to implement the Observables logic.
 
-The Observable emits events programmatically, by a button click event or by a HTTP request response and so on.
+The Observable emits events programmatically, by a button click event or by
+a HTTP request response and so on.
 
 The Observer is implemented with the code in the subscribe method.
 
@@ -82,7 +84,7 @@ It is possible to subscribe to the different data type in this way:
     },
     () => {
         // Completion
-    }.
+    }
 );
 ```
 
@@ -105,7 +107,7 @@ myNumbers.subscribe(
 Is is possible create a simple custom Observable in this way:
 
 ```typescript
-const observable = Observable.create((observer: Observer<number>) => {
+const observable = new Observable((observer: Observer<number>) => {
     let count = 0;
     setInterval(() => {
         observer.next(count);
@@ -120,8 +122,7 @@ this.observableSubscription = observable.subscribe((data: number) => {
 });
 
 
-
-const myObservable = Observable.create((observer: Observer<string>) => {
+const myObservable = new Observable((observer: Observer<string>) => {
     setTimeout(() => { observer.next('first'); }, 2000);
     setTimeout(() => { observer.next('second'); }, 4000);
     setTimeout(() => {
@@ -194,7 +195,7 @@ on the `ngOnDestroy` method.
 
 ### Passing Data With Subject
 
-A **Subject** is and an Observable and an Observer at the same time:
+A **Subject** is an Observable and an Observer at the same time:
 ```typescript
 export class UserService {
   userActivated = new Subject<number>();
@@ -248,7 +249,7 @@ The complete list can be found on
 [learnrxjs](https://www.learnrxjs.io/learn-rxjs/operators).
 
 
-Filter remove values that does not match,
+Filter removes values that does not match,\
 Map remaps the input into something else:
 
 ```typescript
