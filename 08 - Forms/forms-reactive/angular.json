@@ -69,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "forms-reactive:build:production"
+              "buildTarget": "forms-reactive:build:production"
             },
             "development": {
-              "browserTarget": "forms-reactive:build:development"
+              "buildTarget": "forms-reactive:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -80,7 +80,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "forms-reactive:build"
+            "buildTarget": "forms-reactive:build"
           }
         },
         "test": {
@@ -102,6 +102,5 @@
         }
       }
     }
-  },
-  "defaultProject": "forms-reactive"
+  }
 }

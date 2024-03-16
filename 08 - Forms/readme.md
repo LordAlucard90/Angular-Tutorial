@@ -31,8 +31,8 @@ and the template, therefore with greater control.
 
 ### Requests
 
-Since Angular is a single page application, and there are no requests to other pages, 
-the forms have no `action` or `method` parameter: 
+Since Angular is a single page application, and there are no requests to other 
+pages, the forms have no `action` or `method` parameter: 
 
 ```angular2html
 <form> 
@@ -161,7 +161,7 @@ It is possible to disable the submit button if there are some invalid inputs:
 
 ```angular2html
 <form (ngSubmit)="onSubmit()" #f="ngForm">
-    ...
+    <!-- ... -->
     <button
       class="btn btn-primary"
       type="submit"
@@ -252,11 +252,12 @@ to automatically interact with input values:
 
 ```typescript
 export class AppComponent {
-  ...
+  // ...
   answer: string;
-  ...
+  // ...
 }
 ```
+
 ### Grouping Form Controls
 
 It is possible to group some inputs into a single group:
@@ -345,7 +346,7 @@ export class AppComponent {
 With `ngForm.form.patchValue` it is possible to pass only the specific fields
 to replace:
 
-```angular2html
+```typescript
 export class AppComponent {
   @ViewChild('f') myForm: NgForm;
   // ...
@@ -421,7 +422,8 @@ export class AppComponent {
 }
 ```
 
-With `reset` it is also possible to set single input values like `patchValue`.
+It is also possible to reset a single input value like in `patchValue`.
+
 
 ## Reactive
 
@@ -430,12 +432,12 @@ With `reset` it is also possible to set single input values like `patchValue`.
 For the reactive approach **ReactiveFormsModule** is needed:
 ```typescript
 @NgModule({
-  ...,
+  // ...,
   imports: [
-    ...,
+    // ...,
     ReactiveFormsModule
   ],
-  ...
+  // ...
 })
 ```
 
@@ -481,7 +483,7 @@ it is necessary:
       formControlName="username"
       class="form-control">
   </div>
-  ...
+  <!-- ... -->
 </form>
 ```
 
@@ -492,7 +494,7 @@ to a `onSubmit` method:
 
 ```angular2html
 <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-    ...
+    <!-- ... -->
 </form>
 ```
 
@@ -553,7 +555,7 @@ Whit this approach is is possible to access a input
 </div>
 ```
 
-It is still possible add css classes for user experience:
+It is still possible add CSS classes for user experience:
 
 ```css
 .help-block {
@@ -584,7 +586,7 @@ export class AppComponent implements OnInit{
     });
   }
 
-  ...
+  // ...
 }
 ```
 
@@ -592,26 +594,28 @@ In the template it is necessary to replicate the same structure:
 
 ```angular2html
 <div formGroupName="userData">
-  <div class="form-group">
-    <label for="username">Username</label>
-    <input
-      type="text"
-      id="username"
-      formControlName="username"
-      class="form-control">
-    <span
-      class="help-block"
-      *ngIf="!myForm.get('userData.username').valid && myForm.get('userData.username').touched">
-        Please enter a valid username!
-    </span>
+   div formGroupName="userData">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input
+        type="text"
+        id="username"
+        formControlName="username"
+        class="form-control">
+      <span
+        class="help-block"
+        *ngIf="!myForm.get('userData.username').valid && myForm.get('userData.username').touched">
+          Please enter a valid username!
+      </span>
+    </div>
+    <!-- ... -->
   </div>
-  ...
 </div>
 ```
 
 ## Advanced Reactive
 
-It order to make it work i had to set in the `]tsconfig.json`: 
+It order to make it work I had to set in the `tsconfig.json`: 
 ```json
 "strict": false,
 ```

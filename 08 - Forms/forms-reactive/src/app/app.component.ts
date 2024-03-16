@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {
     AbstractControl,
     AsyncValidatorFn,
-    FormArray,
-    FormControl,
-    FormGroup,
+    UntypedFormArray,
+    UntypedFormControl,
+    UntypedFormGroup,
     ValidationErrors,
     Validators,
 } from '@angular/forms';
@@ -18,30 +18,30 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent implements OnInit {
     genders = ['male', 'female'];
-    myForm: FormGroup;
+    myForm: UntypedFormGroup;
     forbiddenUsernames = ['pinco', 'pallino'];
 
     constructor() {
-        this.myForm = new FormGroup({
-            userData: new FormGroup({
-                username: new FormControl(null, [
+        this.myForm = new UntypedFormGroup({
+            userData: new UntypedFormGroup({
+                username: new UntypedFormControl(null, [
                     Validators.required,
                     this.forbiddenNames.bind(this),
                 ]),
-                email: new FormControl(
+                email: new UntypedFormControl(
                     null,
                     [Validators.required, Validators.email],
                     this.forbiddenEmails,
                 ),
             }),
-            gender: new FormControl('male'),
-            hobbies: new FormArray([]),
+            gender: new UntypedFormControl('male'),
+            hobbies: new UntypedFormArray([]),
         });
     }
 
     ngOnInit(): void {
         this.myForm.valueChanges.subscribe(value => {
-            console.log(value);
+            console.log("subscribe: ", value);
         });
         this.myForm.statusChanges.subscribe(status => {
             console.log(status);
@@ -61,7 +61,7 @@ export class AppComponent implements OnInit {
 
     onSubmit() {
         if (this.myForm) {
-            console.log(this.myForm);
+            console.log("submit:", this.myForm.value);
             this.myForm.reset({ gender: 'male' });
             // this.myForm.reset();
         }
@@ -69,13 +69,13 @@ export class AppComponent implements OnInit {
 
     addHobby() {
         if (this.myForm) {
-            (<FormArray>this.myForm.get('hobbies')).push(
-                new FormControl(null, Validators.required),
+            (<UntypedFormArray>this.myForm.get('hobbies')).push(
+                new UntypedFormControl(null, Validators.required),
             );
         }
     }
 
-    forbiddenNames(control: FormControl): { [s: string]: boolean } {
+    forbiddenNames(control: UntypedFormControl): { [s: string]: boolean } {
         if (this.forbiddenUsernames.indexOf(control.value) !== -1) {
             return { nameIsForbidden: true };
             // return {'nameIsAllowed': false};
@@ -107,6 +107,6 @@ export class AppComponent implements OnInit {
     }
 
     get hobbies() {
-        return this.myForm.get('hobbies') as FormArray;
+        return <UntypedFormArray>this.myForm.get('hobbies') ;
     }
 }
