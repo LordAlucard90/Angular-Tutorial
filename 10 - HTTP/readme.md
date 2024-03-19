@@ -24,7 +24,7 @@ In the course is used [firebase](https://firebase.google.com/),
 but I prefer something local like
 [json-server](https://github.com/typicode/json-server):
 ```bash
-npm install -g json-server
+npm install -g json-server@17.0.4
 
 json-server --watch db.json
 # server listening at http://localhost:3000
@@ -74,14 +74,32 @@ A post call can be done in this way:
 ```typescript
 this.http
     .post( // method
-        'http://localhost:3000/posts', // url
-        postData // body autonatically concerted to json
+        'http://localhost:3000/posts', // URL
+        postData // body automatically converted to JSON
     ).subscribe( // response
     responseData => {
         console.log(responseData);
     });
 ```
 If the method is not subscribed, the http request will not be sent.
+
+### Subscription Syntax Update
+
+The new subscribe syntax is actually:
+```typescript
+.subscribe({
+    next: data => {
+        console.log(data);
+    },
+    error: err => {
+        console.log(err);
+    },
+    complete: () => {
+        console.log('Completed');
+    },
+});
+```
+all three handlers are optional
 
 ## Get Request
 
@@ -95,11 +113,11 @@ this.http
     });
 ```
 
+
 ### Transform Input
 
-
-If some transformations are requiered it is a good practice do it with 
-intermetiare observable operations:
+If some transformations are required it is a good practice do it with 
+intermediate observable operations:
 ```typescript
 this.http
     .get(this.postUrl)
@@ -272,7 +290,7 @@ export class AppComponent implements OnInit {
 
 ## Handling Errors
 
-An easy way to hangle errors is:
+An easy way to handle errors is:
 ```typescript
 this.postService.fetchPosts().subscribe(
     (responseData: Post[]) => {
@@ -453,7 +471,8 @@ some available response types are:
 
 ## Interceptors
 
-An interceptor run some code before the request is sent, a basic implementation is:
+An interceptor runs some code before the request is sent, a basic 
+implementation is:
 ```typescript
 export class AuthInterceptorService implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -462,7 +481,7 @@ export class AuthInterceptorService implements HttpInterceptor {
     }
 }
 ```
-In oder to use it in the application, must be added in the app module in the
+In order to use it in the application, must be added in the app module in the
 following way:
 ```typescript
 @NgModule({
@@ -472,14 +491,14 @@ following way:
 })
 export class AppModule {}
 ```
-The prodive tell where the interceptor must be used,
+The provide tells where the interceptor must be used,
 the class is the actual interceptor, and multi tell angular to do not replace
 the default interceptor with this one.
 
 ### Modify The Request
 
 All the requests are immutable, therefore the only way to modify them is to 
-create a new reqeust and retyrn the newly created in the next hangle:
+create a new request and return the newly created in the next handler:
 ```typescript
 export class AuthInterceptorService implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -494,7 +513,7 @@ export class AuthInterceptorService implements HttpInterceptor {
 
 ### Modify The Response
 
-It is possible to intercept responses and in case mofify them, using pipe:
+It is possible to intercept responses and in case notify them, using pipe:
 ```typescript
 export class AuthInterceptorService implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

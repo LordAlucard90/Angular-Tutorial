@@ -16,17 +16,17 @@ export class PostService {
             .post<Post>(this.postUrl, postData, {
                 observe: 'response',
             })
-            .subscribe(
-                responseData => {
-                    console.log(responseData);
-                    console.log(responseData.body);
-                    console.log(responseData.headers);
-                    console.log(responseData.status);
-                },
-                error => {
-                    this.error.next(error.message);
-                },
-            );
+      .subscribe({
+          next: responseData => {
+              console.log(responseData);
+              console.log(responseData.body);
+              console.log(responseData.headers);
+              console.log(responseData.status);
+          },
+          error: err => {
+              this.error.next(err.message);
+          },
+      })
     }
 
     fetchPosts() {
@@ -50,7 +50,7 @@ export class PostService {
                 catchError(error => {
                     console.error(error);
                     // return [];
-                    return throwError(error);
+                    return throwError(error)
                 }),
             );
     }
