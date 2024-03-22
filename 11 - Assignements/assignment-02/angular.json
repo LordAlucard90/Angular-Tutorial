@@ -68,10 +68,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "assignment-02:build:production"
+              "buildTarget": "assignment-02:build:production"
             },
             "development": {
-              "browserTarget": "assignment-02:build:development"
+              "buildTarget": "assignment-02:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -79,7 +79,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "assignment-02:build"
+            "buildTarget": "assignment-02:build"
           }
         },
         "test": {
@@ -101,6 +101,5 @@
         }
       }
     }
-  },
-  "defaultProject": "assignment-02"
+  }
 }
