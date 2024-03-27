@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {
     AbstractControl,
-    FormControl,
-    FormGroup,
+    UntypedFormControl,
+    UntypedFormGroup,
     ValidationErrors,
     Validators,
 } from '@angular/forms';
@@ -14,14 +14,14 @@ import { Observable } from 'rxjs';
     styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-    myForm: FormGroup;
+    myForm: UntypedFormGroup;
     status_list = ['Stable', 'Critical', 'Finished'];
 
     constructor() {
-        this.myForm = new FormGroup({
-            project: new FormControl(null, Validators.required, this.checkProjectName),
-            email: new FormControl(null, [Validators.required, Validators.email]),
-            status: new FormControl('', Validators.required),
+        this.myForm = new UntypedFormGroup({
+            project: new UntypedFormControl(null, Validators.required, this.checkProjectName),
+            email: new UntypedFormControl(null, [Validators.required, Validators.email]),
+            status: new UntypedFormControl('', Validators.required),
         });
     }
 
