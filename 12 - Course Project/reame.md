@@ -56,7 +56,7 @@ ng g c <base_path>/<component>
 
 ### Project Structure
 
-The components are placed inside the other coponents that will primary use them,
+The components are placed inside the other components that will primary use them,
 the shared folder is created for the once that will be used across multiples.
 ```
 src
@@ -242,7 +242,7 @@ export class RecipeItemComponent implements OnInit {
 
 ### Passing Current Selected Recipe
 
-Starting from the `RecipeItemComponent` can be emitted an avent on select:
+Starting from the `RecipeItemComponent` can be emitted an event on select:
 ```angular2html
 <a 
     href="#"
@@ -355,7 +355,7 @@ export class RecipeDetailComponent implements OnInit {
 
 ### ViewChild
 
-It is possile to read the content of an input from `ShoppingEditComponent`:
+It is possible to read the content of an input from `ShoppingEditComponent`:
 ```angular2html
 <!-- ... -->
 <div class="col-sm-5 form-group">
@@ -409,13 +409,13 @@ export class ShoppingListComponent implements OnInit {
 
 ## Directives Deep Dive
 
-It is possile to create a directive using:
+It is possible to create a directive using:
 ```bash
 ng generate directive directive-name 
 # or 
 ng g d directive-name 
 ```
-In order to create a directive to open and closa the dropdowns the
+In order to create a directive to open and close the drop-downs the
 typescript code is:
 ```typescript
 export class DropdownDirective {
@@ -431,13 +431,13 @@ export class DropdownDirective {
     @HostListener('document:click', ['$event']) toggleOpen(event: Event) {
         this.isOpen = this.elRef.nativeElement.contains(event.target) ? !this.isOpen : false;
     }
-    // click listener on the elemene, (doesn't close if clicked on other place)
+    // click listener on the element, (doesn't close if clicked on other place)
     // @HostListener('click') toggle() {
     //     this.isOpen = !this.isOpen;
     // }
 }
 ```
-In the html is id enough to use:
+In the html it is enough to use:
 ```angular2html
 <!-- recipe-detail -->
     <div class="btn-group" appDropdown>
@@ -662,7 +662,7 @@ export class Recipe {
 }
 ```
 show ingredients under current recipe and trigger the sent:
-```typescript
+```angular2html
 <!-- recipe-detail.component.html -->
 <!-- ... -->
 <div class="row">
@@ -700,7 +700,7 @@ show ingredients under current recipe and trigger the sent:
   </div>
 </div>
 ```
-component usagge:
+component usage:
 ```typescript
 @Component({
     // ...
@@ -811,7 +811,7 @@ The actual navigation can be set in the header:
     </ul>
 <!-- ... -->
 ```
-in order to fix the page reloagind problems it is necessary to remove 
+in order to fix the page reloading problems it is necessary to remove 
 all the `href="#"` placed in the application.
 Moreover can be added the `style="cursor: pointer;"`.
 
@@ -1034,7 +1034,7 @@ export class RecipeListComponent implements OnInit {
     }
 }
 ```
-navigatng to the edit page:
+navigating to the edit page:
 ```angular2html
 <!-- recipe-detail.component.html -->
 <!-- ... -->
@@ -1334,7 +1334,6 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
     }
 }
 ```
-
 in the end the delete and clear functionalities can be updated in this way:
 ```typescript
 export class ShoppingListService {
@@ -1787,7 +1786,7 @@ export class RecipeListComponent implements OnInit, OnDestroy {
     }
 }
 ```
-and for the deletion nust be updated the recipe edit component:
+and for the deletion must be updated the recipe edit component:
 ```typescript
 @Component({
     // ...
