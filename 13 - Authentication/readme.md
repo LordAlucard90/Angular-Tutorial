@@ -19,10 +19,10 @@
 In the course is used [firebase](https://firebase.google.com/),
 but I prefer something local like
 [json-server](https://github.com/typicode/json-server),
-since it is needed the authentication i'll use 
+since it is needed the authentication I'll use 
 [json-server-auth](https://github.com/jeremyben/json-server-auth),
 ```bash
-npm install -g json-server-auth
+npm install -g json-server json-server-auth express # required by json-server-auth
 
 json-server-auth --watch db.json -r routes.json 
 # server listening at http://localhost:3000
@@ -32,7 +32,6 @@ curl -X POST http://localhost:3000/register \
     -H 'Content-Type: application/json'\
     -d '{"email":"user@example.com","password":"stron-password"}'
 ```
-
 the content of `db.json` must be:
 ```json
 {
@@ -47,11 +46,12 @@ while `routes.json` should be:
   "recipes": 660
 }
 ```
-it works like linux, [**owner**/**logged**/**public**], `4` read, `2` write.
+it works like Linux, [**owner**/**logged**/**public**], `4` read, `2` write.
 
 ## Login
 
-To manage the auth can be created a new component that manages login and sign up:
+To manage the authentication, it can be created a new component that manages
+login and sign up:
 ```angular2html
 <!-- auth.component.html -->
 <div class="row">
@@ -139,7 +139,7 @@ export class AuthComponent implements OnInit {
     }
 }
 ```
-the auth service is:
+the authentication service is:
 ```typescript
 export interface AuthResponseData {
     accessToken: string;
@@ -182,7 +182,7 @@ export class AuthService {
     }
 }
 ```
-the new rout must be registered:
+the new route must be registered:
 ```typescript
 const routes: Routes = [
     // ...
@@ -403,7 +403,7 @@ as the previous implementation.
 
 ## Logout
 
-In order to logout it is enougth to publish an undefined user:
+In order to logout it is enough to publish an undefined user:
 ```typescript
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -519,7 +519,7 @@ export class AppComponent implements OnInit {
 ## Auth Guard
 
 An auth guard with an automatically redirect to the login page
-can be easily implemeted in this way:
+can be easily implemented in this way:
 ```typescript
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {

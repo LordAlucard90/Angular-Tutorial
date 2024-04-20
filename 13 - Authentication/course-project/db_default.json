@@ -4,11 +4,6 @@
       "email": "user@example.com",
       "password": "$2a$10$OM7qJIxCY/51YX8zBJnGQeWSFuuIu2pdIserdF46Ab/ffEalwbqUm",
       "id": 1
-    },
-    {
-      "email": "user2@example.com",
-      "password": "$2a$10$ho0OmHyQJ00Kmgf9yP/b..tlWs0jaXnovsgB8MWXeeK7YC4m/xZxy",
-      "id": 2
     }
   ],
   "recipes": [
