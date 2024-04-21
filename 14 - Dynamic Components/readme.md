@@ -9,8 +9,8 @@
 
 ## ngIf
 
-The easiest way to create dynamic components, as the auth error alert is 
-the ngIf:
+The easiest way to create dynamic components, as the authentication error alert,
+is the ngIf:
 ```angular2html
 <!-- auth.component.html -->
 <!-- ... -->
@@ -64,10 +64,10 @@ export class AlertComponent implements OnInit {
 
 ## Programmatically Construction
 
-[Programmatically construction documenttion](https://angular.io/guide/dynamic-component-loader)
+[Programmatically construction documentation](https://angular.io/guide/dynamic-component-loader)
 
 To create a component programmatically, it is necessary to create and register
-a custom directive that allows to access the DOM using angular:
+a custom directive that allows to access the DOM using Angular:
 ```typescript
 @Directive({
     selector: '[appPlaceholder]',
@@ -138,7 +138,7 @@ export class AuthComponent implements OnInit, OnDestroy {
             // clear previous data
             alertViewContainerRef.clear();
 
-            // componenet creation
+            // component creation
             const componentRef = alertViewContainerRef.createComponent(alertComponentFactory);
 
             // data and event binding
@@ -159,7 +159,7 @@ export class AuthComponent implements OnInit, OnDestroy {
     }
 }
 ```
-with Angular up to 8 it is also necesasty to register the dynamic component
+with Angular up to 8 it is also necessary to register the dynamic component
 in the entryComponents too:
 ```typescript
 @NgModule({
@@ -167,5 +167,16 @@ in the entryComponents too:
     entryComponents: [AlertComponent],
 })
 export class AppModule { }
+```
+
+### Deprecation
+
+It is not necessary anymore to use the `ComponentFactoryResolver`:
+```typescript
+const alertComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AlertComponent);
+```
+But it is enough to return the component directly:
+```typescript
+const alertComponentFactory = AlertComponent;
 ```
 

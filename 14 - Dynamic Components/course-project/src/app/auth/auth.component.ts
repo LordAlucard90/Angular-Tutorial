@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
@@ -21,7 +21,7 @@ export class AuthComponent implements OnInit, OnDestroy {
     constructor(
         private authService: AuthService,
         private router: Router,
-        private componentFactoryResolver: ComponentFactoryResolver,
+        // private componentFactoryResolver: ComponentFactoryResolver,
     ) { }
 
     ngOnInit(): void { }
@@ -62,8 +62,9 @@ export class AuthComponent implements OnInit, OnDestroy {
 
     private showErrorMessage(error: string) {
         if (this.alertPlaceholder) {
-            const alertComponentFactory =
-                this.componentFactoryResolver.resolveComponentFactory(AlertComponent);
+            const alertComponentFactory = AlertComponent;
+                // deprecated
+                // this.componentFactoryResolver.resolveComponentFactory(AlertComponent);
 
             const alertViewContainerRef = this.alertPlaceholder.viewContainerRef;
             // clear previous data
