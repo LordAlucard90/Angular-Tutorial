@@ -32,7 +32,7 @@ by default each module works by its own and its components are not visible
 by the other modules.
 
 It is possible to split a modules into features modules, this improve usage,
-reusability and optimization.
+re-usability and optimization.
 
 ## Feature Modules
 
@@ -286,7 +286,7 @@ export class AppModule {}
 
 The idea of the core module is to manage all the services in one place
 and provide them in this way to all the application.
-Using the pattern `@Injectable({ providedIn: 'root' })` it is not needed.
+
 In our case the interceptors must be managed in this way.
 ```typescript
 @NgModule({
@@ -327,13 +327,17 @@ then AppModule can be updated:
 export class AppModule {}
 ```
 
+Important: ysing the pattern `@Injectable({ providedIn: 'root' })` it is not
+needed anymore.
+
+
 ## Lazy Loading
 
 The idea of lazy loading is to load at the start of the application only 
 the root module and the modules directly connected with the queried route.
 The other modules can be loaded just when needed.
 
-To enable this feature, it is necessaty to change the base rohte of the 
+To enable this feature, it is necessary to change the base route of the 
 sub-module as empty:
 ```typescript
 const routes: Routes = [
@@ -363,7 +367,7 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 ```
-It is imortant to clear all the imports, otherwise the app will load eveithing
+It is important to clear all the imports, otherwise the app will load everything
 is imported, even if not used.
 ```typescript
 @NgModule({
@@ -630,18 +634,20 @@ therefore there are two different instances of LoggingService too.
 ## Compilation
 
 All the syntax used in the template is not actually DOM understandable but Angular.\
-Therefore Angular have to translate all its directives into Javascript DOM
+Therefore Angular have to translate all its directives into JavaScript DOM
 instructions.
 
 ### Just-In-Time Compilation
 
 Just in time translation id done at runtime in the browser.
-It is the `ng serve` methodology and helps during develppoment and debugging.
+It is the `ng serve` methodology and helps during development and debugging.
 
 ### Ahead-Of-Time Compilation
 
 Ahead of time compilation run during build process, before the app is deployed.
 It can be enabled using `ng build --prod` that creates a production build.
+
+Note: the `--prod` flag is not anymore necessary.
 
 Running this command it is possible to see that the generated files are smaller
 because all the code needed for translation is not needed anymore:
@@ -670,7 +676,7 @@ In the `environments/` folder can be added key value pairs
 in the `environment.ts` and `environment.prod.ts`
 that can be used inside the application.
 
-For example the server url can be configured:
+For example the server URL can be configured:
 ```typescript
 // environment.ts
 export const environment = {
@@ -713,7 +719,7 @@ files to be used in the deployment.
 The hosting procedure changes depending from the host, but in general
 the static files must be uploaded in the host and that's mainly all.
 
-It is important to be sure tha the server is configured to always serve
+It is important to be sure that the server is configured to always serve
 the index.html file and not the sub ones, otherwise it will result in a 404 error.
 
 It is also possible to use [serve](https://github.com/vercel/serve) 
