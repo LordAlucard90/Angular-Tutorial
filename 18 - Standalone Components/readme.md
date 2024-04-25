@@ -29,8 +29,8 @@ export class DetailsComponent {
 
 ## Integration
 
-First of all a standalone Component cannot be declared in the NgModule declarations,
-therefore must be removed:
+First of all a standalone Component cannot be declared in the NgModule 
+declarations, therefore must be removed:
 ```typescript
 @NgModule({
     declarations: [
@@ -47,7 +47,6 @@ therefore must be removed:
 })
 export class AppModule {}
 ```
-
 but it is still necessary to make Angular aware of it,
 to do this there are two possible approaches:
 - hybrid
