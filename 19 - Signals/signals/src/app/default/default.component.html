@@ -1,0 +1,17 @@
+<h1>Default (Automatic Change Detection)</h1>
+
+<div id="counter">
+  <!-- <p id="counter-output">Counter: {{ counter }}</p> -->
+  <p id="counter-output">Counter: {{ counter() }}</p>
+  <p id="counter-output">Double Counter: {{ doubleCounter() }}</p>
+  <div id="counter-btns">
+    <button (click)="decrement()">Decrement</button>
+    <button (click)="increment()">Increment</button>
+  </div>
+</div>
+
+<h2>Action Log</h2>
+<ol id="log">
+  <!-- <li *ngFor="let action of actions">{{ action }}</li> -->
+  <li *ngFor="let action of actions()">{{ action }}</li>
+</ol>
