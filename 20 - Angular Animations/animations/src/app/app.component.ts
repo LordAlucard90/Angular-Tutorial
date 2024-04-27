@@ -164,10 +164,10 @@ export class AppComponent {
     }
 
     onAnimationStarted(event: any) {
-        console.log(event);
+        console.log("onAnimationStarted", event);
     }
 
     onAnimationFinished(event: any) {
-        console.log(event);
+        console.log("onAnimationFinished", event);
     }
 }
