@@ -12,7 +12,7 @@
 ## Intro
 
 It is possible to simulate an Offline behaviour in the browser (Chrome)
-opening the devtoos > Application > Service Workers and checking the 
+opening the `devtoos > Application > Service Workers` and checking the 
 offline checkbox.
 
 
