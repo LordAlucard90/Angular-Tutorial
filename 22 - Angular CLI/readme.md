@@ -114,7 +114,7 @@ Available Commands:
 For more detailed help run "ng [command name] --help"
 ```
 
-#### ng serve
+#### serve
 
 Allows to run the application:
 ```
@@ -175,7 +175,7 @@ options:
     Rebuild on change.
 ```
 
-#### ng generate
+#### generate
 
 Allows to create schematics:
 ```
@@ -220,7 +220,7 @@ Available Schematics:
     web-worker
 ```
 
-It is possible to have more information rquiring help on the specific schematic:
+It is possible to have more information requiring help on the specific schematic:
 ```
 $ ng generate component --help
 
@@ -283,7 +283,7 @@ To see help for a schematic run:
   ng generate <schematic> --help
 ```
 
-#### ng build
+#### build
 
 Allows to build the application:
 ```
@@ -433,7 +433,7 @@ options:
 
 ```
 during the process some questions can be prompt up and the process
-not justw add new dependencies to the project, but can also change some files.
+not just add new dependencies to the project, but can also change some files.
 
 Example with material:
 ```
