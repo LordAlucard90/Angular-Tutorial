@@ -260,7 +260,7 @@ and to transform them in `ng-template` form:
 </ng-template>
 ```
 
-### Custom Structural Directives
+### Custom
 
 A structural directive receives the template where is declared
 as reference to a view:

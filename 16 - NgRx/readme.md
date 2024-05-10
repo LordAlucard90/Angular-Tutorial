@@ -3,7 +3,7 @@
 In the original course this topic was added to the course project, in a new 
 version it was done more abstract therefore I rewrote the section.\
 Nevertheless, I kept the code in the 
-[Project Versions](../30 - Course Project Versions/).
+[Project Versions](../30%20-%20Course%20Project%20Versions/).
 
 
 ## Content
